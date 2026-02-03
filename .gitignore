@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+start_server.py
+
+# PDFs
+*.pdf
+
+# Other experiments
+experiment-fotis.html
+
+# System files
+.DS_Store
+Thumbs.db
