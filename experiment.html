@@ -709,6 +709,18 @@
             animation: rubberBand 0.6s infinite;
         }
 
+        /* 12. Slide In Up Animation (για Video Ad) */
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         /* ============================================ */
         /* RESPONSIVE DESIGN - MOBILE OPTIMIZATION     */
         /* ============================================ */
@@ -1088,8 +1100,8 @@
     <div class="intro-section">
         <h2>🎯 Πείραμα Αντίληψης Διαφημίσεων</h2>
         <p>Στο πλαίσιο της διπλωματικής εργασίας με θέμα <em>«Στρατηγικές Διαδικτυακής Διαφήμισης και Συμπεριφορά Χρήστη»</em>, διεξάγουμε μια έρευνα για το πώς οι χρήστες αντιλαμβάνονται διαφορετικούς τύπους διαφημίσεων.</p>
-        <p>Θα σας παρουσιαστούν <strong>9 σενάρια διαφημίσεων</strong> σε μια προσομοίωση κινητού τηλεφώνου. Παρακαλούμε βαθμολογήστε την εμπειρία σας για το καθένα.</p>
-        <p><strong>Διάρκεια:</strong> Περίπου 10-15 λεπτά</p>
+        <p>Θα σας παρουσιαστούν <strong>10 σενάρια διαφημίσεων</strong> σε μια προσομοίωση κινητού τηλεφώνου. Παρακαλούμε βαθμολογήστε την εμπειρία σας για το καθένα.</p>
+        <p><strong>Διάρκεια:</strong> Περίπου 12-15 λεπτά</p>
         
         <!-- Mobile Eye-Tracking Notice -->
         <div id="mobile-notice" style="display: none; background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 15px; border-radius: 5px;">
@@ -1132,6 +1144,17 @@
             <label style="display: block; margin-bottom: 8px;"><input type="radio" name="adblocker" value="Ναι"> Ναι</label>
             <label style="display: block; margin-bottom: 8px;"><input type="radio" name="adblocker" value="Όχι"> Όχι</label>
             <label style="display: block;"><input type="radio" name="adblocker" value="Δεν γνωρίζω"> Δεν γνωρίζω</label>
+        </div>
+    </div>
+    
+    <div class="question-block">
+        <label><strong>Θέλετε να ενεργοποιήσετε Eye Tracking (Παρακολούθηση Βλέμματος);</strong></label>
+        <div style="margin-top: 10px; margin-bottom: 10px;">
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="eyetracking" value="Ναι"> ✅ Ναι (Απαιτεί webcam - συνιστάται για πλήρη έρευνα)</label>
+            <label style="display: block;"><input type="radio" name="eyetracking" value="Όχι"> ❌ Όχι (Συμμετοχή χωρίς eye tracking)</label>
+        </div>
+        <div style="background: #e8f4f8; padding: 12px; border-radius: 6px; font-size: 13px; color: #2c3e50;">
+            <strong>ℹ️ Σημείωση:</strong> Το eye tracking βοηθά την έρευνα αλλά δεν είναι υποχρεωτικό. Μπορείτε να συμμετάσχετε και χωρίς αυτό!
         </div>
     </div>
     </div>
@@ -1315,6 +1338,12 @@
             title: "Product/Category Discount (Στοχευμένη Κατηγορία)",
             desc: "Διαφήμιση που προσφέρει έκπτωση σε ΣΥΓΚΕΚΡΙΜΕΝΗ κατηγορία προϊόντων που πιθανόν σας ενδιαφέρει. Στοχευμένη αλλά ΠΑΡΕΜΒΑΤΙΚΗ.",
             html: '<div class="ad-overlay modal-center" id="ad-9" style="background:rgba(0,0,0,0.8);"><div class="ad-content pop-effect" style="background:white; color:#333; width:90%; max-width:370px; padding:25px; border-radius:12px;"><span class="close-btn" onclick="closeAd(9)" style="color:#999; font-size:26px;">✕</span><div style="text-align:center;"><div style="font-size:45px; margin:10px 0;">📱</div><h2 style="margin:10px 0; color:#2c3e50; font-size:20px;">Ειδική Προσφορά σε<br>Smartphones & Tablets</h2><div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; padding:15px; border-radius:8px; margin:20px 0;"><div style="font-size:14px; margin-bottom:5px;">Έκπτωση έως</div><div style="font-size:42px; font-weight:bold;">40%</div><div style="font-size:13px; margin-top:5px;">σε επιλεγμένα μοντέλα</div></div><div style="background:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0;"><div style="font-size:13px; color:#555; margin-bottom:10px;">✓ iPhone 15 Pro - €899 <s style="color:#999;">€1299</s></div><div style="font-size:13px; color:#555; margin-bottom:10px;">✓ Samsung Galaxy S24 - €699 <s style="color:#999;">€999</s></div><div style="font-size:13px; color:#555;">✓ iPad Air - €549 <s style="color:#999;">€799</s></div></div><button class="ad-button" onclick="alert(\'Μεταφορά στις προσφορές...\')" style="width:100%; padding:15px; background:#e74c3c; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold; font-size:16px;">🛍️ ΔΕΙΤΕ ΤΙΣ ΠΡΟΣΦΟΡΕΣ</button><p style="font-size:11px; margin-top:15px; color:#999;">⏰ Προσφορά ισχύει για περιορισμένο χρονικό διάστημα</p></div></div></div>'
+        },
+        {
+            id: 10,
+            title: "Autoplay Video Ad (Βίντεο με Αυτόματη Αναπαραγωγή & Ήχο)",
+            desc: "Ενώ διαβάζετε άρθρο, ξεκινάει ΑΥΤΟΜΑΤΑ ένα βίντεο διαφήμισης με ΔΥΝΑΤΟ ΗΧΟ! Εξαιρετικά ενοχλητικό και διασπαστικό.",
+            html: '<div class="ad-overlay" id="ad-10" style="position:absolute; bottom:60px; right:10px; width:280px; height:auto; background:#000; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.5); z-index:25; animation:slideInUp 0.6s ease-out;"><div style="position:relative; background:#000; border-radius:12px; overflow:hidden;"><span class="close-btn" onclick="closeAd(10); stopAdVideo(10);" style="position:absolute; top:8px; right:8px; z-index:30; background:rgba(0,0,0,0.7); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:20px; border:2px solid rgba(255,255,255,0.3);">✕</span><video id="ad-video-10" autoplay loop muted playsinline style="width:100%; height:auto; display:block; border-radius:12px 12px 0 0;"><source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"></video><audio id="ad-audio-10" autoplay loop><source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZUQ0PVKzn77BiFwtDmeH0wGseBS6Cz/PYiTYIG2m98Oacfw0PVKvo7bGdYxwGM43c9MN7KgYpd8fw3pE/ChVev+zu%2F%2BvcAAAWNjA%3D%3D" type="audio/wav"></audio><div style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:12px; text-align:center;"><div style="font-size:13px; font-weight:bold; margin-bottom:5px;">🔊 ΕΙΔΙΚΗ ΠΡΟΣΦΟΡΑ!</div><div style="font-size:11px; opacity:0.9;">Κλικ για περισσότερα</div></div></div></div>'
         }
     
     ];
@@ -1413,8 +1442,9 @@
         const genderElement = document.querySelector('input[name="gender"]:checked');
         const deviceElement = document.querySelector('input[name="device"]:checked');
         const adblockerElement = document.querySelector('input[name="adblocker"]:checked');
+        const eyetrackingElement = document.querySelector('input[name="eyetracking"]:checked');
         
-        if (!age || !genderElement || !deviceElement || !adblockerElement) {
+        if (!age || !genderElement || !deviceElement || !adblockerElement || !eyetrackingElement) {
             alert("Παρακαλώ συμπληρώστε όλα τα δημογραφικά στοιχεία.");
             return;
         }
@@ -1423,6 +1453,16 @@
         userGender = genderElement.value;
         userDevice = deviceElement.value;
         userAdBlocker = adblockerElement.value;
+        const useEyeTracking = eyetrackingElement.value === 'Ναι';
+        
+        // Αν δεν θέλει eye tracking, πήγαινε κατευθείαν στο πείραμα
+        if (!useEyeTracking) {
+            console.log('👁️ Eye tracking disabled by user - skipping calibration');
+            updateStatus(false, 'Eye Tracking: Απενεργοποιημένο');
+            document.getElementById('intro').classList.add('hidden');
+            startExperiment();
+            return;
+        }
         
         // Εμφάνιση calibration screen
         document.getElementById('intro').classList.add('hidden');
@@ -1720,6 +1760,21 @@
         const adElement = document.getElementById('ad-' + adId);
         if (adElement) {
             adElement.style.display = 'none';
+        }
+    }
+    
+    // Function to stop video/audio ads
+    function stopAdVideo(adId) {
+        const video = document.getElementById('ad-video-' + adId);
+        const audio = document.getElementById('ad-audio-' + adId);
+        
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
         }
     }
 
