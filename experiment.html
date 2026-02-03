@@ -846,6 +846,77 @@
                 height: 44px;
                 margin: 10px 0;
             }
+            
+            /* ========================================== */
+            /* MOBILE PHONE SIMULATOR - RESPONSIVE       */
+            /* ========================================== */
+            
+            /* On mobile/tablet, remove phone frame and go full width */
+            .mobile-frame {
+                width: 100% !important;
+                max-width: 400px;
+                height: auto !important;
+                min-height: 500px;
+                margin: 20px auto !important;
+                background: transparent !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
+            
+            /* Remove phone decorations on mobile */
+            .mobile-frame::before,
+            .mobile-frame::after {
+                display: none !important;
+            }
+            
+            .simulation-box {
+                border-radius: 15px !important;
+                height: auto !important;
+                min-height: 500px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+            }
+            
+            /* Website content */
+            .website-content {
+                padding: 12px !important;
+            }
+            
+            .website-header {
+                padding: 12px !important;
+                font-size: 13px !important;
+                margin: -12px -12px 10px -12px !important;
+            }
+            
+            .article-title {
+                font-size: 15px !important;
+            }
+            
+            .article-text {
+                font-size: 13px !important;
+            }
+            
+            .article-image {
+                height: 140px !important;
+            }
+            
+            /* Homepage grid - single column on mobile */
+            .article-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+            
+            .article-card-image {
+                height: 120px !important;
+            }
+            
+            .homepage {
+                padding: 12px !important;
+            }
+            
+            .homepage-title {
+                font-size: 16px !important;
+            }
         }
         
         @media screen and (max-width: 480px) {
@@ -875,6 +946,66 @@
             h2 {
                 font-size: 16px !important;
             }
+            
+            /* Extra adjustments for small screens */
+            .mobile-frame {
+                min-height: 450px !important;
+            }
+            
+            .simulation-box {
+                min-height: 450px !important;
+            }
+            
+            .article-image {
+                height: 120px !important;
+            }
+            
+            .article-card-image {
+                height: 100px !important;
+            }
+            
+            .website-content {
+                padding: 10px !important;
+            }
+            
+            /* Ad overlays - full screen on mobile */
+            .ad-content {
+                max-width: 90% !important;
+                padding: 15px !important;
+                font-size: 13px !important;
+            }
+            
+            .ad-overlay h3 {
+                font-size: 16px !important;
+            }
+            
+            .ad-overlay p {
+                font-size: 13px !important;
+            }
+            
+            .ad-button {
+                padding: 10px 20px !important;
+                font-size: 13px !important;
+                min-height: 44px !important;
+            }
+            
+            .close-btn {
+                font-size: 24px !important;
+                padding: 8px 12px !important;
+            }
+            
+            /* Banner ads */
+            .banner-bottom {
+                height: 70px !important;
+                font-size: 12px !important;
+            }
+            
+            /* Video ads */
+            .video-autoplay {
+                width: 90% !important;
+                height: auto !important;
+                aspect-ratio: 16/9;
+            }
         }
         
         /* Touch device optimizations */
@@ -902,6 +1033,36 @@
             
             .calibration-point:active {
                 transform: scale(0.95);
+            }
+        }
+        
+        /* ============================================ */
+        /* TABLET OPTIMIZATION (Portrait & Landscape)  */
+        /* ============================================ */
+        @media screen and (min-width: 481px) and (max-width: 768px) {
+            .mobile-frame {
+                max-width: 450px !important;
+                min-height: 550px;
+            }
+            
+            .simulation-box {
+                min-height: 550px;
+            }
+            
+            /* Keep 2-column grid on tablets */
+            .article-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+        
+        /* Tablet landscape */
+        @media screen and (min-width: 769px) and (max-width: 1024px) {
+            .mobile-frame {
+                max-width: 380px;
+            }
+            
+            .container {
+                max-width: 900px;
             }
         }
     </style>
