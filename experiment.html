@@ -1343,7 +1343,7 @@
             id: 10,
             title: "Autoplay Video Ad (Βίντεο με Αυτόματη Αναπαραγωγή & Ήχο)",
             desc: "Ενώ διαβάζετε άρθρο, ξεκινάει ΑΥΤΟΜΑΤΑ ένα βίντεο διαφήμισης με ΔΥΝΑΤΟ ΗΧΟ! Εξαιρετικά ενοχλητικό και διασπαστικό.",
-            html: '<div class="ad-overlay" id="ad-10" style="position:absolute; bottom:60px; right:10px; width:280px; height:auto; background:#000; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.5); z-index:25; animation:slideInUp 0.6s ease-out;"><div style="position:relative; background:#000; border-radius:12px; overflow:hidden;"><span class="close-btn" onclick="closeAd(10); stopAdVideo(10);" style="position:absolute; top:8px; right:8px; z-index:30; background:rgba(0,0,0,0.7); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:20px; border:2px solid rgba(255,255,255,0.3);">✕</span><video id="ad-video-10" autoplay loop muted playsinline style="width:100%; height:auto; display:block; border-radius:12px 12px 0 0;"><source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"></video><audio id="ad-audio-10" autoplay loop><source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTGH0fPTgjMGHm7A7+OZUQ0PVKzn77BiFwtDmeH0wGseBS6Cz/PYiTYIG2m98Oacfw0PVKvo7bGdYxwGM43c9MN7KgYpd8fw3pE/ChVev+zu%2F%2BvcAAAWNjA%3D%3D" type="audio/wav"></audio><div style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:12px; text-align:center;"><div style="font-size:13px; font-weight:bold; margin-bottom:5px;">🔊 ΕΙΔΙΚΗ ΠΡΟΣΦΟΡΑ!</div><div style="font-size:11px; opacity:0.9;">Κλικ για περισσότερα</div></div></div></div>'
+            html: '<div class="ad-overlay" id="ad-10" style="position:absolute; bottom:60px; right:10px; width:280px; height:auto; background:#000; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.5); z-index:25; animation:slideInUp 0.6s ease-out;"><div style="position:relative; background:#000; border-radius:12px; overflow:hidden;"><span class="close-btn" onclick="closeAd(10); stopAdVideo(10);" style="position:absolute; top:8px; right:8px; z-index:30; background:rgba(0,0,0,0.7); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:20px; border:2px solid rgba(255,255,255,0.3);">✕</span><video id="ad-video-10" loop playsinline style="width:100%; height:auto; display:block; border-radius:12px 12px 0 0;"><source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"></video><div style="background:linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color:white; padding:12px; text-align:center;"><div style="font-size:13px; font-weight:bold; margin-bottom:5px;">🔊 ΕΙΔΙΚΗ ΠΡΟΣΦΟΡΑ!</div><div style="font-size:11px; opacity:0.9;">Κλικ για περισσότερα</div></div></div></div>'
         }
     
     ];
@@ -1735,6 +1735,57 @@
                 if (window.currentAdElement) {
                     window.currentAdElement.classList.add('show-ad');
                     adShown = true;
+                    
+                    // Για το scenario 10, ξεκινάμε το video με ήχο + beep sound
+                    const currentScenarioId = scenarios[currentStep].id;
+                    if (currentScenarioId === 10) {
+                        setTimeout(() => {
+                            const video = document.getElementById('ad-video-10');
+                            if (video) {
+                                video.volume = 0.8;
+                                video.muted = false;
+                                video.play().catch(e => console.log('Video autoplay blocked:', e));
+                                console.log('🎬 Video with sound started for scenario 10');
+                            }
+                            
+                            // Δημιουργία ενοχλητικού beep με Web Audio API
+                            try {
+                                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                                const oscillator = audioContext.createOscillator();
+                                const gainNode = audioContext.createGain();
+                                
+                                oscillator.connect(gainNode);
+                                gainNode.connect(audioContext.destination);
+                                
+                                oscillator.frequency.value = 800; // 800Hz annoying beep
+                                oscillator.type = 'square';
+                                gainNode.gain.value = 0.3;
+                                
+                                oscillator.start();
+                                
+                                // Beep pattern: 0.2s on, 0.3s off, repeat
+                                let isPlaying = true;
+                                window.beepInterval = setInterval(() => {
+                                    if (isPlaying) {
+                                        gainNode.gain.value = 0;
+                                        isPlaying = false;
+                                    } else {
+                                        gainNode.gain.value = 0.3;
+                                        isPlaying = true;
+                                    }
+                                }, 500);
+                                
+                                // Store για να το σταματήσουμε αργότερα
+                                window.annoyngBeepOscillator = oscillator;
+                                window.annoyingBeepContext = audioContext;
+                                
+                                console.log('🔊 Annoying beep sound started');
+                            } catch (e) {
+                                console.log('Web Audio API error:', e);
+                            }
+                        }, 300);
+                    }
+                    
                     // Αφαίρεση listener μετά την εμφάνιση
                     websiteContent.removeEventListener('scroll', showAdOnScroll);
                 }
@@ -1766,15 +1817,23 @@
     // Function to stop video/audio ads
     function stopAdVideo(adId) {
         const video = document.getElementById('ad-video-' + adId);
-        const audio = document.getElementById('ad-audio-' + adId);
         
         if (video) {
             video.pause();
             video.currentTime = 0;
         }
-        if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
+        
+        // Stop annoying beep sound for scenario 10
+        if (adId === 10) {
+            if (window.beepInterval) {
+                clearInterval(window.beepInterval);
+            }
+            if (window.annoyngBeepOscillator) {
+                window.annoyngBeepOscillator.stop();
+            }
+            if (window.annoyingBeepContext) {
+                window.annoyingBeepContext.close();
+            }
         }
     }
 
