@@ -1755,6 +1755,13 @@
         // Reset form
         document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
         document.getElementById('q3').selectedIndex = 0;
+
+        // Scroll page and content to top for the next scenario
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        const content = document.getElementById('website-content');
+        if (content) {
+            content.scrollTop = 0;
+        }
     }
 
     function nextScenario() {
