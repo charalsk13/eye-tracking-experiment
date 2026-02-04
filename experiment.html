@@ -387,7 +387,7 @@
 
         /* Ad Styles representing types mentioned in thesis */
         .ad-overlay {
-            position: absolute;
+            position: fixed; /* Άλλαξε από absolute σε fixed */
             background: rgba(0,0,0,0.8);
             color: white;
             display: none; /* Αρχικά κρυμμένη */
@@ -1755,7 +1755,7 @@
                     // Force inline styles για να είμαστε σίγουροι
                     window.currentAdElement.style.display = 'flex';
                     window.currentAdElement.style.zIndex = '1000';
-                    window.currentAdElement.style.position = 'absolute';
+                    window.currentAdElement.style.position = 'fixed'; // fixed αντί για absolute
                     adShown = true;
                     console.log(`✅ Ad displayed for scenario ${scenarios[currentStep].id}`);
                     
