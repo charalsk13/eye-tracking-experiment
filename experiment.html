@@ -1746,12 +1746,16 @@
             const scrollTop = websiteContent.scrollTop;
             console.log(`📜 Scroll event: ${scrollTop}px, adShown: ${adShown}`);
             
-            if (!adShown && scrollTop > 80) {
+            if (!adShown && scrollTop > 30) {  // Μειώθηκε από 80px σε 30px
                 console.log('🎯 Scroll threshold reached! Showing ad...');
                 
-                // Εμφάνιση διαφήμισης μετά από 80px scroll
+                // Εμφάνιση διαφήμισης μετά από 30px scroll
                 if (window.currentAdElement) {
                     window.currentAdElement.classList.add('show-ad');
+                    // Force inline styles για να είμαστε σίγουροι
+                    window.currentAdElement.style.display = 'flex';
+                    window.currentAdElement.style.zIndex = '1000';
+                    window.currentAdElement.style.position = 'absolute';
                     adShown = true;
                     console.log(`✅ Ad displayed for scenario ${scenarios[currentStep].id}`);
                     
