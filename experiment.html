@@ -112,7 +112,7 @@
             width: 100%;
             position: relative;
             background: #fff;
-            overflow: hidden;
+            overflow: visible;
             display: flex;
             flex-direction: column;
         }
@@ -387,7 +387,7 @@
 
         /* Ad Styles representing types mentioned in thesis */
         .ad-overlay {
-            position: fixed; /* Άλλαξε από absolute σε fixed */
+            position: absolute;
             background: rgba(0,0,0,0.8);
             color: white;
             display: none; /* Αρχικά κρυμμένη */
@@ -395,7 +395,7 @@
             align-items: center;
             flex-direction: column;
             text-align: center;
-            z-index: 100; /* Πολύ ψηλό z-index για να φαίνεται πάνω από τα πάντα */
+            z-index: 100;
         }
         
         .ad-overlay.show-ad {
@@ -1752,10 +1752,6 @@
                 // Εμφάνιση διαφήμισης μετά από 30px scroll
                 if (window.currentAdElement) {
                     window.currentAdElement.classList.add('show-ad');
-                    // Force inline styles για να είμαστε σίγουροι
-                    window.currentAdElement.style.display = 'flex';
-                    window.currentAdElement.style.zIndex = '1000';
-                    window.currentAdElement.style.position = 'fixed'; // fixed αντί για absolute
                     adShown = true;
                     console.log(`✅ Ad displayed for scenario ${scenarios[currentStep].id}`);
                     
