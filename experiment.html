@@ -1653,11 +1653,11 @@
             ${scenario.html}
         `;
         
-        // Αποθήκευση αναφοράς διαφήμισης για το τρέχον scenario
-        window.currentAdElement = document.getElementById('ad-' + scenario.id);
-        
-        // Εμφάνιση διαφήμισης μετά από 2 δευτερόλεπτα ΑΥΤΟΜΑΤΑ
+        // Περίμενε λίγο για να φορτώσει το DOM πριν βρεις το ad element
         setTimeout(() => {
+            // Αποθήκευση αναφοράς διαφήμισης για το τρέχον scenario
+            window.currentAdElement = document.getElementById('ad-' + scenario.id);
+            
             if (window.currentAdElement) {
                 window.currentAdElement.classList.add('show-ad');
                 console.log(`📢 Ad ${scenario.id} displayed automatically`);
@@ -1710,6 +1710,8 @@
                         }
                     }, 300);
                 }
+            } else {
+                console.error(`⚠️ Ad element not found for scenario ${scenario.id}`);
             }
         }, 2000);
         
