@@ -1726,6 +1726,8 @@
     let adShown = false;
     
     function loadArticle(articleIndex) {
+        console.log(`📖 Loading article ${articleIndex}`);
+        
         // Κρύψε homepage
         document.getElementById('homepage').style.display = 'none';
         
@@ -1737,12 +1739,25 @@
         adShown = false;
         const websiteContent = document.getElementById('website-content');
         
+        if (!websiteContent) {
+            console.error('⚠️ website-content element not found!');
+            return;
+        }
+        
+        console.log(`✅ Scroll listener attached. Current ad element:`, window.currentAdElement);
+        
         websiteContent.addEventListener('scroll', function showAdOnScroll() {
-            if (!adShown && websiteContent.scrollTop > 80) {
+            const scrollTop = websiteContent.scrollTop;
+            console.log(`📜 Scroll event: ${scrollTop}px, adShown: ${adShown}`);
+            
+            if (!adShown && scrollTop > 80) {
+                console.log('🎯 Scroll threshold reached! Showing ad...');
+                
                 // Εμφάνιση διαφήμισης μετά από 80px scroll
                 if (window.currentAdElement) {
                     window.currentAdElement.classList.add('show-ad');
                     adShown = true;
+                    console.log(`✅ Ad displayed for scenario ${scenarios[currentStep].id}`);
                     
                     // Για το scenario 10, ξεκινάμε το video με ήχο + beep sound
                     const currentScenarioId = scenarios[currentStep].id;
@@ -1796,6 +1811,8 @@
                     
                     // Αφαίρεση listener μετά την εμφάνιση
                     websiteContent.removeEventListener('scroll', showAdOnScroll);
+                } else {
+                    console.error('⚠️ No currentAdElement found when scroll threshold reached!');
                 }
             }
         });
