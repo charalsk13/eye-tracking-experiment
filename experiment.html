@@ -112,7 +112,7 @@
             width: 100%;
             position: relative;
             background: #fff;
-            overflow: visible;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -1653,11 +1653,6 @@
         // Η διαφήμιση θα εμφανιστεί όταν ο χρήστης ανοίξει άρθρο και κάνει scroll
         setTimeout(() => {
             window.currentAdElement = document.getElementById('ad-' + scenario.id);
-            if (!window.currentAdElement) {
-                console.error(`⚠️ Ad element not found for scenario ${scenario.id}`);
-            } else {
-                console.log(`✅ Ad element ready for scenario ${scenario.id} - waiting for user to open article and scroll`);
-            }
         }, 100);
         
         // Reset form
@@ -1722,8 +1717,6 @@
     let adShown = false;
     
     function loadArticle(articleIndex) {
-        console.log(`📖 Loading article ${articleIndex}`);
-        
         // Κρύψε homepage
         document.getElementById('homepage').style.display = 'none';
         
@@ -1735,25 +1728,12 @@
         adShown = false;
         const websiteContent = document.getElementById('website-content');
         
-        if (!websiteContent) {
-            console.error('⚠️ website-content element not found!');
-            return;
-        }
-        
-        console.log(`✅ Scroll listener attached. Current ad element:`, window.currentAdElement);
-        
         websiteContent.addEventListener('scroll', function showAdOnScroll() {
-            const scrollTop = websiteContent.scrollTop;
-            console.log(`📜 Scroll event: ${scrollTop}px, adShown: ${adShown}`);
-            
-            if (!adShown && scrollTop > 30) {  // Μειώθηκε από 80px σε 30px
-                console.log('🎯 Scroll threshold reached! Showing ad...');
-                
-                // Εμφάνιση διαφήμισης μετά από 30px scroll
+            if (!adShown && websiteContent.scrollTop > 80) {
+                // Εμφάνιση διαφήμισης μετά από 80px scroll
                 if (window.currentAdElement) {
                     window.currentAdElement.classList.add('show-ad');
                     adShown = true;
-                    console.log(`✅ Ad displayed for scenario ${scenarios[currentStep].id}`);
                     
                     // Για το scenario 10, ξεκινάμε το video με ήχο + beep sound
                     const currentScenarioId = scenarios[currentStep].id;
@@ -1807,8 +1787,6 @@
                     
                     // Αφαίρεση listener μετά την εμφάνιση
                     websiteContent.removeEventListener('scroll', showAdOnScroll);
-                } else {
-                    console.error('⚠️ No currentAdElement found when scroll threshold reached!');
                 }
             }
         });
