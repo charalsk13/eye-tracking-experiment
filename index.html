@@ -1314,9 +1314,8 @@
 </div>
 
 <div class="container hidden" id="ranking-screen">
-    <h2>📌 Τελική Κατάταξη Διαφημίσεων</h2>
-    <p>Δείτε τις διαφημίσεις όπως τις είδατε. Βάλτε <strong>1 έως 3</strong> στις πιο ενοχλητικές (1 = πιο ενοχλητική, 3 = τρίτη).</p>
-    <p style="font-size: 13px; color: #666;">Πρέπει να χρησιμοποιήσετε κάθε αριθμό μόνο μία φορά.</p>
+    <h2>📌 Τελική Αξιολόγηση Διαφημίσεων</h2>
+    <p>Δείτε τις διαφημίσεις όπως τις είδατε. Βάλτε <strong>1 έως 5</strong> για το πόσο ενοχλητική ήταν η κάθε διαφήμιση (1 = Καθόλου, 5 = Πολύ).</p>
 
     <div id="ranking-list"></div>
 
@@ -2006,51 +2005,35 @@ function sendData() {
             <div class="question-block">
                 <div style="font-weight: 600; margin-bottom: 6px;">${s.title}</div>
                 <div style="font-size: 12px; color: #666; margin-bottom: 10px;">${s.desc}</div>
-                <label style="font-size: 13px;">Βαθμός ενοχλητικότητας (1-3):</label>
-                <select class="rank-select" data-scenario-id="${s.id}" style="width: 100%; padding: 8px; margin-top: 6px;">
-                    <option value="">— Επιλέξτε —</option>
-                    <option value="1">1 (πιο ενοχλητική)</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
+                <label style="font-size: 13px;">Ενοχλητικότητα (1-5):</label>
+                <div style="display:flex; align-items:center; gap:12px; margin-top:6px;">
+                    <input type="range" class="rank-range" data-scenario-id="${s.id}" min="1" max="5" value="3" step="1" style="flex:1;">
+                    <span class="rank-range-value" style="min-width:24px; font-weight:600;">3</span>
+                </div>
             </div>
         `).join('');
     }
 
     function submitRanking() {
-        const selects = Array.from(document.querySelectorAll('.rank-select'));
-        const selectedValues = selects.map(s => s.value).filter(v => v !== '');
+        const ranges = Array.from(document.querySelectorAll('.rank-range'));
         const overallAnnoyanceEl = document.getElementById('overall-annoyance');
         const overallAnnoyance = overallAnnoyanceEl ? overallAnnoyanceEl.value : '';
-
-        if (selectedValues.length !== 3) {
-            alert('Παρακαλώ επιλέξτε ακριβώς 3 διαφημίσεις με βαθμούς 1, 2, 3.');
-            return;
-        }
-
-        const uniqueValues = new Set(selectedValues);
-        if (uniqueValues.size !== 3) {
-            alert('Κάθε αριθμός (1, 2, 3) πρέπει να χρησιμοποιηθεί μόνο μία φορά.');
-            return;
-        }
 
         if (!overallAnnoyance) {
             alert('Παρακαλώ συμπληρώστε τη συνολική ενοχλητικότητα (1-5).');
             return;
         }
 
-        rankingData = selects
-            .filter(s => s.value !== '')
-            .map(s => {
-                const id = parseInt(s.dataset.scenarioId, 10);
-                const scenario = scenarios.find(sc => sc.id === id);
-                return {
-                    ScenarioID: id,
-                    ScenarioType: scenario ? scenario.title : '',
-                    ScenarioDesc: scenario ? scenario.desc : '',
-                    Rank: parseInt(s.value, 10)
-                };
-            });
+        rankingData = ranges.map(r => {
+            const id = parseInt(r.dataset.scenarioId, 10);
+            const scenario = scenarios.find(sc => sc.id === id);
+            return {
+                ScenarioID: id,
+                ScenarioType: scenario ? scenario.title : '',
+                ScenarioDesc: scenario ? scenario.desc : '',
+                Annoyance: parseInt(r.value, 10)
+            };
+        });
 
         // Προσθήκη ranking στο payload
         responses.push({
@@ -2060,7 +2043,7 @@ function sendData() {
             Device: userDevice,
             AdBlocker: userAdBlocker,
             ScenarioID: 'Ranking',
-            ScenarioType: 'Top3 Annoying Ads',
+            ScenarioType: 'Per Ad Annoyance (1-5)',
             Annoyance: '',
             Intrusiveness: '',
             Reaction: '',
@@ -2109,6 +2092,14 @@ function sendData() {
     window.addEventListener('DOMContentLoaded', function() {
         detectMobileDevice();
         renderRankingList();
+        document.addEventListener('input', (event) => {
+            if (event.target && event.target.classList.contains('rank-range')) {
+                const valueEl = event.target.parentElement.querySelector('.rank-range-value');
+                if (valueEl) {
+                    valueEl.textContent = event.target.value;
+                }
+            }
+        });
         const overallEl = document.getElementById('overall-annoyance');
         const overallValueEl = document.getElementById('overall-annoyance-value');
         if (overallEl && overallValueEl) {
