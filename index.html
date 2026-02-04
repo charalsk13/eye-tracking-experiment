@@ -1714,7 +1714,9 @@
         } else {
             // Σταμάτημα tracking
             isTracking = false;
-            webgazer.pause();
+            if (typeof webgazer !== 'undefined') {
+                webgazer.pause();
+            }
             updateStatus(false, 'Eye Tracking: Ολοκληρώθηκε');
             
             console.log(`✅ Experiment completed! Total gaze data: ${gazeData.length} points`);
