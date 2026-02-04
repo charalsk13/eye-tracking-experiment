@@ -1320,6 +1320,14 @@
 
     <div id="ranking-list"></div>
 
+    <div class="question-block">
+        <label style="font-weight: 600;">Συνολικά, πόσο ενοχλητικές ήταν οι διαφημίσεις; (1 = Καθόλου, 5 = Πολύ)</label>
+        <div style="display:flex; align-items:center; gap:12px; margin-top:10px;">
+            <input type="range" id="overall-annoyance" min="1" max="5" value="3" step="1" style="flex:1;">
+            <span id="overall-annoyance-value" style="min-width:24px; font-weight:600;">3</span>
+        </div>
+    </div>
+
     <button class="btn" onclick="submitRanking()">Συνέχεια</button>
 </div>
 
@@ -2012,6 +2020,8 @@ function sendData() {
     function submitRanking() {
         const selects = Array.from(document.querySelectorAll('.rank-select'));
         const selectedValues = selects.map(s => s.value).filter(v => v !== '');
+        const overallAnnoyanceEl = document.getElementById('overall-annoyance');
+        const overallAnnoyance = overallAnnoyanceEl ? overallAnnoyanceEl.value : '';
 
         if (selectedValues.length !== 3) {
             alert('Παρακαλώ επιλέξτε ακριβώς 3 διαφημίσεις με βαθμούς 1, 2, 3.');
@@ -2021,6 +2031,11 @@ function sendData() {
         const uniqueValues = new Set(selectedValues);
         if (uniqueValues.size !== 3) {
             alert('Κάθε αριθμός (1, 2, 3) πρέπει να χρησιμοποιηθεί μόνο μία φορά.');
+            return;
+        }
+
+        if (!overallAnnoyance) {
+            alert('Παρακαλώ συμπληρώστε τη συνολική ενοχλητικότητα (1-5).');
             return;
         }
 
@@ -2054,6 +2069,22 @@ function sendData() {
             GazeData: JSON.stringify(rankingData)
         });
 
+        responses.push({
+            UserID: userID,
+            Age: userAge,
+            Gender: userGender,
+            Device: userDevice,
+            AdBlocker: userAdBlocker,
+            ScenarioID: 'OverallAnnoyance',
+            ScenarioType: 'Overall Annoyance (1-5)',
+            Annoyance: overallAnnoyance,
+            Intrusiveness: '',
+            Reaction: '',
+            EmotionalResponse: '',
+            GazeDataPoints: '',
+            GazeData: ''
+        });
+
         document.getElementById('ranking-screen').classList.add('hidden');
         document.getElementById('thank-you').classList.remove('hidden');
     }
@@ -2078,6 +2109,13 @@ function sendData() {
     window.addEventListener('DOMContentLoaded', function() {
         detectMobileDevice();
         renderRankingList();
+        const overallEl = document.getElementById('overall-annoyance');
+        const overallValueEl = document.getElementById('overall-annoyance-value');
+        if (overallEl && overallValueEl) {
+            overallEl.addEventListener('input', () => {
+                overallValueEl.textContent = overallEl.value;
+            });
+        }
         console.log('🚀 Experiment loaded successfully');
     });
 </script>
