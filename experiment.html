@@ -395,15 +395,11 @@
             align-items: center;
             flex-direction: column;
             text-align: center;
-            z-index: 10;
+            z-index: 100; /* Πολύ ψηλό z-index για να φαίνεται πάνω από τα πάντα */
         }
         
         .ad-overlay.show-ad {
-            display: flex; /* Εμφανίζεται όταν προστεθεί η κλάση */
-        }
-        
-        .ad-overlay.show-ad {
-            display: flex; /* Εμφανίζεται όταν προστεθεί η κλάση */
+            display: flex !important; /* Εμφανίζεται όταν προστεθεί η κλάση */
         }
         
         /* Types of Ads */
