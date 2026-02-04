@@ -1809,6 +1809,7 @@
     function closeAd(adId) {
         const adElement = document.getElementById('ad-' + adId);
         if (adElement) {
+            adElement.classList.remove('show-ad');
             adElement.style.display = 'none';
         }
     }
