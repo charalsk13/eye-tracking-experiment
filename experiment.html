@@ -1653,67 +1653,16 @@
             ${scenario.html}
         `;
         
-        // Περίμενε λίγο για να φορτώσει το DOM πριν βρεις το ad element
+        // Αποθήκευση αναφοράς διαφήμισης για το τρέχον scenario
+        // Η διαφήμιση θα εμφανιστεί όταν ο χρήστης ανοίξει άρθρο και κάνει scroll
         setTimeout(() => {
-            // Αποθήκευση αναφοράς διαφήμισης για το τρέχον scenario
             window.currentAdElement = document.getElementById('ad-' + scenario.id);
-            
-            if (window.currentAdElement) {
-                window.currentAdElement.classList.add('show-ad');
-                console.log(`📢 Ad ${scenario.id} displayed automatically`);
-                
-                // Για το scenario 10, ξεκινάμε το video και το beep sound
-                if (scenario.id === 10) {
-                    setTimeout(() => {
-                        const video = document.getElementById('ad-video-10');
-                        if (video) {
-                            video.volume = 0.8;
-                            video.muted = false;
-                            video.play().catch(e => console.log('Video autoplay blocked:', e));
-                            console.log('🎬 Video with sound started for scenario 10');
-                        }
-                        
-                        // Δημιουργία ενοχλητικού beep με Web Audio API
-                        try {
-                            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                            const oscillator = audioContext.createOscillator();
-                            const gainNode = audioContext.createGain();
-                            
-                            oscillator.connect(gainNode);
-                            gainNode.connect(audioContext.destination);
-                            
-                            oscillator.frequency.value = 800; // 800Hz annoying beep
-                            oscillator.type = 'square';
-                            gainNode.gain.value = 0.3;
-                            
-                            oscillator.start();
-                            
-                            // Beep pattern: 0.2s on, 0.3s off, repeat
-                            let isPlaying = true;
-                            window.beepInterval = setInterval(() => {
-                                if (isPlaying) {
-                                    gainNode.gain.value = 0;
-                                    isPlaying = false;
-                                } else {
-                                    gainNode.gain.value = 0.3;
-                                    isPlaying = true;
-                                }
-                            }, 500);
-                            
-                            // Store για να το σταματήσουμε αργότερα
-                            window.annoyngBeepOscillator = oscillator;
-                            window.annoyingBeepContext = audioContext;
-                            
-                            console.log('🔊 Annoying beep sound started');
-                        } catch (e) {
-                            console.log('Web Audio API error:', e);
-                        }
-                    }, 300);
-                }
-            } else {
+            if (!window.currentAdElement) {
                 console.error(`⚠️ Ad element not found for scenario ${scenario.id}`);
+            } else {
+                console.log(`✅ Ad element ready for scenario ${scenario.id} - waiting for user to open article and scroll`);
             }
-        }, 2000);
+        }, 100);
         
         // Reset form
         document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
