@@ -872,6 +872,22 @@
                 box-shadow: 0 15px 40px rgba(0,0,0,0.3) !important;
             }
             
+            /* Smaller frame on actual mobile devices */
+            @media (max-width: 480px) {
+                .mobile-frame {
+                    max-width: 85% !important;
+                    min-height: 400px !important;
+                    margin: 10px auto !important;
+                    border-radius: 28px !important;
+                    padding: 8px !important;
+                }
+                
+                .simulation-box {
+                    min-height: 380px !important;
+                    border-radius: 22px !important;
+                }
+            }
+            
             /* Keep phone decorations (notch and home indicator) */
             .mobile-frame::before,
             .mobile-frame::after {
