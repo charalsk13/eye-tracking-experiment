@@ -414,18 +414,18 @@
         .close-btn { 
             position: absolute; 
             top: 5px; 
-            right: 10px; 
+            right: 5px; 
             cursor: pointer; 
-            font-weight: bold; 
-            color: rgba(150, 150, 150, 0.4); /* Πολύ αχνό γκρι */
+            font-weight: normal; 
+            color: rgba(180, 180, 180, 0.25); /* Πολύ πιο αχνό */
             z-index: 30; 
-            transition: all 0.3s;
-            font-size: 14px; /* Μικρότερο */
+            transition: all 0.2s;
+            font-size: 11px; /* Πολύ μικρό */
         }
         .close-btn:hover { 
-            transform: scale(1.3); 
-            color: #c0392b;
-            opacity: 1; /* Φαίνεται μόνο στο hover */
+            transform: scale(1.2); 
+            color: rgba(200, 200, 200, 0.6);
+            opacity: 1;
         }
         .ad-button { cursor: pointer; transition: transform 0.2s, background 0.2s; }
         .ad-button:hover { transform: scale(1.05); }
@@ -775,10 +775,13 @@
             }
             
             .close-btn {
-                font-size: 28px !important;
-                padding: 5px 15px !important;
-                min-width: 44px; /* Touch target */
-                min-height: 44px;
+                font-size: 14px !important;
+                padding: 4px 8px !important;
+                min-width: 32px !important;
+                min-height: 32px !important;
+                top: 3px !important;
+                right: 3px !important;
+                color: rgba(180, 180, 180, 0.3) !important;
             }
             
             /* Calibration */
@@ -1017,8 +1020,13 @@
             }
             
             .close-btn {
-                font-size: 24px !important;
-                padding: 8px 12px !important;
+                font-size: 12px !important;
+                padding: 4px 6px !important;
+                min-width: 28px !important;
+                min-height: 28px !important;
+                top: 3px !important;
+                right: 3px !important;
+                color: rgba(180, 180, 180, 0.3) !important;
             }
             
             /* Banner ads */
@@ -1048,9 +1056,12 @@
             
             /* Remove hover effects on touch devices */
             .btn:hover,
-            .calibration-point:hover,
-            .close-btn:hover {
+            .calibration-point:hover {
                 transform: none;
+            }
+            
+            .close-btn:hover {
+                color: rgba(200, 200, 200, 0.5) !important;
             }
             
             /* Active state for touch feedback */
