@@ -859,30 +859,30 @@
             /* MOBILE PHONE SIMULATOR - RESPONSIVE       */
             /* ========================================== */
             
-            /* On mobile/tablet, remove phone frame and go full width */
+            /* Keep phone frame visible on all devices */
             .mobile-frame {
                 width: 100% !important;
-                max-width: 400px;
+                max-width: 380px;
                 height: auto !important;
-                min-height: 500px;
+                min-height: 550px;
                 margin: 20px auto !important;
-                background: transparent !important;
-                border-radius: 0 !important;
-                padding: 0 !important;
-                box-shadow: none !important;
+                background: #000 !important;
+                border-radius: 40px !important;
+                padding: 12px !important;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.3) !important;
             }
             
-            /* Remove phone decorations on mobile */
+            /* Keep phone decorations (notch and home indicator) */
             .mobile-frame::before,
             .mobile-frame::after {
-                display: none !important;
+                display: block !important;
             }
             
             .simulation-box {
-                border-radius: 15px !important;
+                border-radius: 30px !important;
                 height: auto !important;
-                min-height: 500px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+                min-height: 520px;
+                box-shadow: none !important;
             }
             
             /* Website content */
