@@ -322,6 +322,11 @@
             background: #27ae60;
             animation: pulse 0.5s;
         }
+
+        .calibration-point.completed {
+            background: #27ae60;
+            box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.4);
+        }
         
         .calibration-instructions {
             background: #f0f4ff;
@@ -1593,6 +1598,11 @@
         // Visual feedback
         element.classList.add('clicked');
         setTimeout(() => element.classList.remove('clicked'), 300);
+
+        // Αν συμπληρώθηκαν 5 κλικ στο σημείο, κλείδωσε πράσινο
+        if (calibrationClicks[pointNum] >= 5) {
+            element.classList.add('completed');
+        }
         
         // Update status
         const totalClicks = Object.values(calibrationClicks).reduce((a, b) => a + b, 0);
