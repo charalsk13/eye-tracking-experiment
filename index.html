@@ -1419,6 +1419,12 @@
     let gazeData = [];
     let isTracking = false;
     let calibrationClicks = {};
+
+    function encodeUtf8Base64(value) {
+        if (value === null || value === undefined) return '';
+        const str = String(value);
+        return btoa(unescape(encodeURIComponent(str)));
+    }
     
     // Ensure WebGazer is loaded (fallback to local file if CDN fails)
     function ensureWebgazerLoaded() {
@@ -1808,7 +1814,8 @@
             Reaction: q3,
             EmotionalResponse: q4.value,
             GazeDataPoints: scenarioGazeData.length,
-            GazeData: JSON.stringify(scenarioGazeData)
+            GazeDataEncoding: 'base64',
+            GazeData: encodeUtf8Base64(JSON.stringify(scenarioGazeData))
         });
 
         currentStep++;
@@ -1968,7 +1975,7 @@
     }
 
 function sendData() {
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyFBlS1GBcywj27uCxZdmT11ZJRDxBZtzB9OV_mNanBSu-L5V_4NZSEHIBtUtHrLq7p/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyqe1XQRqEDDgYkwc56EZBKtSx0rWd8AG1bHErRGLm-qJl9ybyZEIdeJkumN_owRB8u/exec';
         
         const submitBtn = document.querySelector('#thank-you .btn');
         submitBtn.disabled = true;
@@ -2049,7 +2056,8 @@ function sendData() {
             Reaction: '',
             EmotionalResponse: '',
             GazeDataPoints: '',
-            GazeData: JSON.stringify(rankingData)
+            GazeDataEncoding: 'base64',
+            GazeData: encodeUtf8Base64(JSON.stringify(rankingData))
         });
 
         responses.push({
@@ -2065,6 +2073,7 @@ function sendData() {
             Reaction: '',
             EmotionalResponse: '',
             GazeDataPoints: '',
+            GazeDataEncoding: '',
             GazeData: ''
         });
 
