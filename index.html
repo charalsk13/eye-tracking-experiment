@@ -1129,10 +1129,13 @@
     </div>
     
     <div class="intro-section">
-        <h2>🎯 Πείραμα Αντίληψης Διαφημίσεων</h2>
+        <h2> Πείραμα Αντίληψης Διαφημίσεων</h2>
         <p>Στο πλαίσιο της διπλωματικής εργασίας με θέμα <em>«Στρατηγικές Διαδικτυακής Διαφήμισης και Συμπεριφορά Χρήστη»</em>, διεξάγουμε μια έρευνα για το πώς οι χρήστες αντιλαμβάνονται διαφορετικούς τύπους διαφημίσεων.</p>
         <p>Θα σας παρουσιαστούν <strong>10 σενάρια διαφημίσεων</strong> σε μια προσομοίωση κινητού τηλεφώνου. Παρακαλούμε βαθμολογήστε την εμπειρία σας για το καθένα.</p>
         <p><strong>Διάρκεια:</strong> Περίπου 12-15 λεπτά</p>
+        <p style="font-size: 13px; color: #555; background: #f0f4ff; padding: 10px 12px; border-radius: 6px; border-left: 4px solid #667eea;">
+            <strong>GDPR:</strong> Τα δεδομένα της κάμερας χρησιμοποιούνται αποκλειστικά για τον υπολογισμό του βλέμματος σε πραγματικό χρόνο και δεν αποθηκεύεται βίντεο ή εικόνα του προσώπου σας.
+        </p>
         
         <!-- AdBlocker Warning - ΣΗΜΑΝΤΙΚΟ! -->
         <div style="background: #ffebee; border-left: 4px solid #e74c3c; padding: 15px; margin-top: 15px; border-radius: 5px; border: 2px solid #e74c3c;">
@@ -1159,7 +1162,7 @@
     
     <div class="question-block">
         <label><strong>Ποια είναι η ηλικία σας;</strong></label>
-        <input type="number" id="age" min="16" max="100" style="width: 100%; padding: 10px; margin-top: 10px; font-size: 16px;" placeholder="Εισάγετε την ηλικία σας">
+        <input type="number" id="age" min="16" max="100" style="width: 100%; padding: 10px; margin-top: 10px; font-size: 16px; box-sizing: border-box;" placeholder="Εισάγετε την ηλικία σας">
     </div>
     
     <div class="question-block">
@@ -1201,7 +1204,7 @@
     </div>
     </div>
     
-    <button class="btn" onclick="startCalibration()">🚀 Έναρξη Πειράματος</button>
+    <button class="btn" onclick="startCalibration()"> Έναρξη Πειράματος</button>
 </div>
 
 <!-- Calibration Screen -->
@@ -1560,6 +1563,8 @@
         userAdBlocker = adblockerElement.value;
         const useEyeTracking = eyetrackingElement.value === 'Ναι';
         
+
+    
         // Αν δεν θέλει eye tracking, πήγαινε κατευθείαν στο πείραμα
         if (!useEyeTracking) {
             console.log('👁️ Eye tracking disabled by user - skipping calibration');
