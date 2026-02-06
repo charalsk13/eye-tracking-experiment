@@ -458,6 +458,7 @@
             color: #555;
             line-height: 1.8;
             margin: 10px 0;
+            text-align: justify;
         }
         
         .intro-section strong {
@@ -1829,8 +1830,8 @@
             Reaction: q3,
             EmotionalResponse: q4.value,
             GazeDataPoints: scenarioGazeData.length,
-            GazeDataEncoding: 'base64',
-            GazeData: encodeUtf8Base64(JSON.stringify(scenarioGazeData))
+            GazeDataEncoding: 'json',
+            GazeData: JSON.stringify(scenarioGazeData)
         });
 
         currentStep++;
