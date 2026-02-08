@@ -206,6 +206,9 @@
             margin-bottom: 15px;
             text-align: center;
         }
+        .homepage-title.attention {
+            animation: pulse 1.2s infinite;
+        }
         
         .article-grid {
             display: grid;
@@ -541,6 +544,12 @@
         }
         .btn:active {
             transform: translateY(0);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
         }
         .hidden { display: none; }
 
@@ -1249,84 +1258,222 @@
 <div class="container hidden" id="experiment-screen">
     <h2 id="scenario-title">Σενάριο 1/9</h2>
     <p id="scenario-desc">Περιγραφή...</p>
-    
-    <div class="mobile-frame">
-        <div class="simulation-box" id="sim-box">
-            <div class="website-header">www.news-portal.gr</div>
-            <div class="website-content" id="website-content">
-                <div class="article-title">Νέες Τεχνολογίες που Θα Αλλάξουν τη Ζωή μας το 2026</div>
-                <div class="article-image">📱 Εικόνα Άρθρου</div>
-                <div class="article-meta">Δημοσιεύθηκε: 23 Ιανουαρίου 2026 | Συγγραφέας: Δημοσιογράφος</div>
-                <div class="article-text">
-                    <strong>Τεχνητή Νοημοσύνη, Κβαντικοί Υπολογιστές και Βιοτεχνολογία</strong><br><br>
-                    Το 2026 σηματοδοτεί μια νέα εποχή για την τεχνολογία. Τα συστήματα τεχνητής νοημοσύνης γίνονται όλο και πιο ισχυρά, οι κβαντικοί υπολογιστές πλησιάζουν τα κατώφλια της πραγματικής εφαρμογής τους, και η βιοτεχνολογία ανοίγει νέες δυνατότητες στην υγεία.<br><br>
-                    Ειδικοί από το ΜΙΤ και το Stanford πρόβλεψαν ότι...
-                </div>
-                <div class="article-title" style="margin-top: 15px;">Εξοικονόμηση Ενέργειας: Ποιες Συσκευές Κατανάλωσαν Περισσότερο</div>
-                <div class="article-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">⚡ Γράφημα Ενέργειας</div>
-                <div class="article-meta">Δημοσιεύθηκε: 20 Ιανουαρίου 2026</div>
-                <div class="article-text">
-                    Σύμφωνα με τα νεότερα δεδομένα, οι κλιματιστικές μονάδες είναι υπεύθυνες για το 40% της κατανάλωσης ενέργειας στα νοικοκυριά...
+
+    <div id="interaction-step">
+        <div class="mobile-frame">
+            <div class="simulation-box" id="sim-box">
+                <div class="website-header">www.news-portal.gr</div>
+                <div class="website-content" id="website-content">
+                    <div class="article-title">Νέες Τεχνολογίες που Θα Αλλάξουν τη Ζωή μας το 2026</div>
+                    <div class="article-image">📱 Εικόνα Άρθρου</div>
+                    <div class="article-meta">Δημοσιεύθηκε: 23 Ιανουαρίου 2026 | Συγγραφέας: Δημοσιογράφος</div>
+                    <div class="article-text">
+                        <strong>Τεχνητή Νοημοσύνη, Κβαντικοί Υπολογιστές και Βιοτεχνολογία</strong><br><br>
+                        Το 2026 σηματοδοτεί μια νέα εποχή για την τεχνολογία. Τα συστήματα τεχνητής νοημοσύνης γίνονται όλο και πιο ισχυρά, οι κβαντικοί υπολογιστές πλησιάζουν τα κατώφλια της πραγματικής εφαρμογής τους, και η βιοτεχνολογία ανοίγει νέες δυνατότητες στην υγεία.<br><br>
+                        Ειδικοί από το ΜΙΤ και το Stanford πρόβλεψαν ότι...
+                    </div>
+                    <div class="article-title" style="margin-top: 15px;">Εξοικονόμηση Ενέργειας: Ποιες Συσκευές Κατανάλωσαν Περισσότερο</div>
+                    <div class="article-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">⚡ Γράφημα Ενέργειας</div>
+                    <div class="article-meta">Δημοσιεύθηκε: 20 Ιανουαρίου 2026</div>
+                    <div class="article-text">
+                        Σύμφωνα με τα νεότερα δεδομένα, οι κλιματιστικές μονάδες είναι υπεύθυνες για το 40% της κατανάλωσης ενέργειας στα νοικοκυριά...
+                    </div>
                 </div>
             </div>
         </div>
+
+        <button class="btn" id="complete-interaction-btn" onclick="completeInteraction()" disabled>Ολοκλήρωση Περιήγησης</button>
     </div>
 
-    <form id="questions-form">
-        <div class="question-block">
-            <label>1. Πόσο <strong>ενοχλητική</strong> θεωρείτε αυτή τη διαφήμιση; (1=Καθόλου, 5=Πάρα πολύ)</label>
-            <div class="likert-scale">
-                <label class="likert-option"><input type="radio" name="q1" value="1">1</label>
-                <label class="likert-option"><input type="radio" name="q1" value="2">2</label>
-                <label class="likert-option"><input type="radio" name="q1" value="3">3</label>
-                <label class="likert-option"><input type="radio" name="q1" value="4">4</label>
-                <label class="likert-option"><input type="radio" name="q1" value="5">5</label>
+    <div id="evaluation-step" class="hidden">
+        <form id="questions-form">
+            <div class="question-block">
+                <label>1. Πόσο <strong>ενοχλητική</strong> θεωρείτε αυτή τη διαφήμιση; (1=Καθόλου, 5=Πάρα πολύ)</label>
+                <div class="likert-scale">
+                    <label class="likert-option"><input type="radio" name="q1" value="1">1</label>
+                    <label class="likert-option"><input type="radio" name="q1" value="2">2</label>
+                    <label class="likert-option"><input type="radio" name="q1" value="3">3</label>
+                    <label class="likert-option"><input type="radio" name="q1" value="4">4</label>
+                    <label class="likert-option"><input type="radio" name="q1" value="5">5</label>
+                </div>
             </div>
-        </div>
 
-        <div class="question-block">
-            <label>2. Σε ποιο βαθμό θεωρείτε ότι <strong>παρεμποδίζει</strong> τον στόχο σας (π.χ. να διαβάσετε το άρθρο); (1=Καθόλου, 5=Πολύ)</label>
-            <div class="likert-scale">
-                <label class="likert-option"><input type="radio" name="q2" value="1">1</label>
-                <label class="likert-option"><input type="radio" name="q2" value="2">2</label>
-                <label class="likert-option"><input type="radio" name="q2" value="3">3</label>
-                <label class="likert-option"><input type="radio" name="q2" value="4">4</label>
-                <label class="likert-option"><input type="radio" name="q2" value="5">5</label>
+            <div class="question-block">
+                <label>2. Σε ποιο βαθμό θεωρείτε ότι <strong>παρεμποδίζει</strong> τον στόχο σας (π.χ. να διαβάσετε το άρθρο); (1=Καθόλου, 5=Πολύ)</label>
+                <div class="likert-scale">
+                    <label class="likert-option"><input type="radio" name="q2" value="1">1</label>
+                    <label class="likert-option"><input type="radio" name="q2" value="2">2</label>
+                    <label class="likert-option"><input type="radio" name="q2" value="3">3</label>
+                    <label class="likert-option"><input type="radio" name="q2" value="4">4</label>
+                    <label class="likert-option"><input type="radio" name="q2" value="5">5</label>
+                </div>
             </div>
-        </div>
 
-        <div class="question-block">
-            <label>3. Ποια θα ήταν η πιθανότερη <strong>αντίδρασή</strong> σας;</label>
-            <select id="q3" style="width: 100%; padding: 8px; margin-top:5px;">
-                <option value="" disabled selected>Επιλέξτε...</option>
-                <option value="Close">Θα έκλεινα τη διαφήμιση και θα συνέχιζα</option>
-                <option value="Ignore">Θα την αγνοούσα</option>
-                <option value="Leave">Θα εγκατέλειπα την ιστοσελίδα</option>
-                <option value="AdBlock">Θα εγκαθιστούσα AdBlock</option>
-                <option value="NegativeBrand">Θα σχημάτιζα αρνητική γνώμη για το Brand</option>
-            </select>
-        </div>
-
-        <div class="question-block">
-            <label>4. Πώς σας έκανε να αισθανθείτε αυτή η διαφήμιση; (1=Καθόλου αρνητικά, 5=Πολύ αρνητικά/εκνευριστικά)</label>
-            <div class="likert-scale">
-                <label class="likert-option"><input type="radio" name="q4" value="1">1</label>
-                <label class="likert-option"><input type="radio" name="q4" value="2">2</label>
-                <label class="likert-option"><input type="radio" name="q4" value="3">3</label>
-                <label class="likert-option"><input type="radio" name="q4" value="4">4</label>
-                <label class="likert-option"><input type="radio" name="q4" value="5">5</label>
+            <div class="question-block">
+                <label>3. Ποια θα ήταν η πιθανότερη <strong>αντίδρασή</strong> σας;</label>
+                <select id="q3" style="width: 100%; padding: 8px; margin-top:5px;">
+                    <option value="" disabled selected>Επιλέξτε...</option>
+                    <option value="Close">Θα έκλεινα τη διαφήμιση και θα συνέχιζα</option>
+                    <option value="Ignore">Θα την αγνοούσα</option>
+                    <option value="Leave">Θα εγκατέλειπα την ιστοσελίδα</option>
+                    <option value="AdBlock">Θα εγκαθιστούσα AdBlock</option>
+                    <option value="NegativeBrand">Θα σχημάτιζα αρνητική γνώμη για το Brand</option>
+                    <option value="Other">Άλλο (διευκρινίστε)</option>
+                </select>
+                <input type="text" id="q3-other" class="hidden" style="width: 100%; padding: 10px; margin-top: 8px; font-size: 14px; box-sizing: border-box;" placeholder="Διευκρινίστε την απάντησή σας">
             </div>
-        </div>
-    </form>
 
-    <button class="btn" onclick="nextScenario()">Επόμενο</button>
+            <div class="question-block">
+                <label>4. Πώς σας έκανε να αισθανθείτε αυτή η διαφήμιση; (1=Καθόλου αρνητικά, 5=Πολύ αρνητικά/εκνευριστικά)</label>
+                <div class="likert-scale">
+                    <label class="likert-option"><input type="radio" name="q4" value="1">1</label>
+                    <label class="likert-option"><input type="radio" name="q4" value="2">2</label>
+                    <label class="likert-option"><input type="radio" name="q4" value="3">3</label>
+                    <label class="likert-option"><input type="radio" name="q4" value="4">4</label>
+                    <label class="likert-option"><input type="radio" name="q4" value="5">5</label>
+                </div>
+            </div>
+        </form>
+
+        <button class="btn" id="next-scenario-btn" onclick="nextScenario()">Επόμενο</button>
+    </div>
 </div>
 
 <div class="container hidden" id="ranking-screen">
     <h2>📌 Τελική Αξιολόγηση Διαφημίσεων</h2>
-    <p>Δείτε τις διαφημίσεις όπως τις είδατε. Βάλτε <strong>1 έως 5</strong> για το πόσο ενοχλητική ήταν η κάθε διαφήμιση (1 = Καθόλου, 5 = Πολύ).</p>
+    <p>Δείτε τις διαφημίσεις όπως τις είδατε. Επιλέξτε <strong>μόνο τις 3 πιο ενοχλητικές</strong> με σειρά προτεραιότητας (1 = πιο ενοχλητική, 2 = δεύτερη, 3 = τρίτη).</p>
 
     <div id="ranking-list"></div>
+
+    <div class="demographic-section" style="margin-top: 20px;">
+        <div class="section-title">📌 Γενική Αντίληψη Ενόχλησης</div>
+        <p style="margin: 0 0 15px 0; font-size: 13px; color: #555;">Ενοχλητική θεωρώ μια διαφήμιση που...</p>
+
+        <div class="question-block">
+            <label>1. ...με διακόπτει και μου αποσπά την προσοχή. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="annoy1" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="annoy1" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="annoy1" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="annoy1" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="annoy1" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>2. ...είναι υποχρεωτική (δεν μπορώ να την αποφύγω). (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="annoy2" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="annoy2" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="annoy2" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="annoy2" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="annoy2" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>3. ...έχει μεγάλη διάρκεια. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="annoy3" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="annoy3" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="annoy3" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="annoy3" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="annoy3" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>4. ...μου προβάλλεται συχνά. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="annoy4" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="annoy4" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="annoy4" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="annoy4" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="annoy4" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>5. ...το περιεχόμενό της είναι ενοχλητικό/προσβλητικό. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="annoy5" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="annoy5" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="annoy5" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="annoy5" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="annoy5" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>6. ...δεν με ενδιαφέρει το προϊόν. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="annoy6" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="annoy6" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="annoy6" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="annoy6" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="annoy6" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>7. ...είναι εξατομικευμένη (βασίζεται σε προηγούμενη δραστηριότητά μου online). (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="annoy7" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="annoy7" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="annoy7" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="annoy7" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="annoy7" value="5">5</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="demographic-section" style="margin-top: 20px;">
+        <div class="section-title">🧠 Γενική Άποψη &amp; Επίδραση</div>
+
+        <div class="question-block">
+            <label>1. Οι διαφημίσεις μιας επωνυμίας (ή των προϊόντων της) με κάνουν να διαμορφώνω θετική ή αρνητική άποψη για αυτή. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="opinion1" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="opinion1" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="opinion1" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="opinion1" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="opinion1" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>2. Οι διαφημίσεις μιας επωνυμίας (ή ενός προϊόντος) με επηρεάζουν στο αν θα την επιλέξω για αγορές στο μέλλον. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="opinion2" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="opinion2" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="opinion2" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="opinion2" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="opinion2" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>3. Οι διαφημίσεις που προβάλλει ένας ιστότοπος με κάνουν να διαμορφώνω θετική ή αρνητική άποψη για αυτόν. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="opinion3" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="opinion3" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="opinion3" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="opinion3" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="opinion3" value="5">5</label>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <label>4. Οι διαφημίσεις που προβάλλει ένας ιστότοπος με επηρεάζουν στο αν θα τον ξαναεπισκεφτώ στο μέλλον. (1=Διαφωνώ απόλυτα, 5=Συμφωνώ απόλυτα)</label>
+            <div class="likert-scale">
+                <label class="likert-option"><input type="radio" name="opinion4" value="1">1</label>
+                <label class="likert-option"><input type="radio" name="opinion4" value="2">2</label>
+                <label class="likert-option"><input type="radio" name="opinion4" value="3">3</label>
+                <label class="likert-option"><input type="radio" name="opinion4" value="4">4</label>
+                <label class="likert-option"><input type="radio" name="opinion4" value="5">5</label>
+            </div>
+        </div>
+    </div>
 
     <div class="question-block">
         <label style="font-weight: 600;">Συνολικά, πόσο ενοχλητικές ήταν οι διαφημίσεις; (1 = Καθόλου, 5 = Πολύ)</label>
@@ -1336,7 +1483,7 @@
         </div>
     </div>
 
-    <button class="btn" onclick="submitRanking()">Συνέχεια</button>
+    <button class="btn" id="ranking-continue-btn" onclick="submitRanking()" disabled>Συνέχεια</button>
 </div>
 
 <div class="container hidden" id="thank-you">
@@ -1421,6 +1568,7 @@
     let userDevice = null;
     let userAdBlocker = null;
     let rankingData = [];
+    let rankingSelections = [];
 
     const userID = 'user_' + Math.random().toString(36).substr(2, 9);
 
@@ -1428,6 +1576,14 @@
     let gazeData = [];
     let isTracking = false;
     let calibrationClicks = {};
+    let aoiMetrics = {
+        adShownAt: null,
+        ttffMs: null,
+        totalFixationMs: 0,
+        visits: 0,
+        lastSampleTime: null,
+        lastInAOI: false
+    };
 
     function encodeUtf8Base64(value) {
         if (value === null || value === undefined) return '';
@@ -1481,9 +1637,11 @@
                 return;
             }
             
+            const sampleTime = Date.now();
+
             // Αποθήκευση gaze data
             const gazePoint = {
-                timestamp: Date.now(),
+                timestamp: sampleTime,
                 x: Math.round(data.x),
                 y: Math.round(data.y),
                 scenarioId: scenarios[currentStep].id,
@@ -1499,6 +1657,30 @@
             
             // Update counter
             updateGazeCounter();
+
+            // AOI Metrics (μόνο όταν η διαφήμιση έχει εμφανιστεί)
+            if (adShown && window.currentAdElement) {
+                const rect = window.currentAdElement.getBoundingClientRect();
+                const inAOI = data.x >= rect.left && data.x <= rect.right && data.y >= rect.top && data.y <= rect.bottom;
+
+                if (aoiMetrics.lastSampleTime !== null) {
+                    const delta = sampleTime - aoiMetrics.lastSampleTime;
+                    if (aoiMetrics.lastInAOI) {
+                        aoiMetrics.totalFixationMs += delta;
+                    }
+                }
+
+                if (inAOI && !aoiMetrics.lastInAOI) {
+                    aoiMetrics.visits += 1;
+                }
+
+                if (inAOI && aoiMetrics.ttffMs === null && aoiMetrics.adShownAt !== null) {
+                    aoiMetrics.ttffMs = sampleTime - aoiMetrics.adShownAt;
+                }
+
+                aoiMetrics.lastInAOI = inAOI;
+                aoiMetrics.lastSampleTime = sampleTime;
+            }
         }).begin();
         
         // Ρυθμίσεις WebGazer
@@ -1733,7 +1915,7 @@
         const scenario = scenarios[currentStep];
         
         document.getElementById('scenario-title').innerText = `Σενάριο ${currentStep + 1}/${scenarios.length}: ${scenario.title}`;
-        document.getElementById('scenario-desc').innerText = scenario.desc;
+        document.getElementById('scenario-desc').innerHTML = '<strong>Οδηγία: Επιλέξτε ένα από τα διαθέσιμα άρθρα στην οθόνη του κινητού και περιηγηθείτε (scroll) για να ξεκινήσει το σενάριο.</strong><br>' + scenario.desc;
         
         // Clear sim-box and rebuild with homepage + articles
         const simBox = document.getElementById('sim-box');
@@ -1742,7 +1924,7 @@
             <div class="website-content" id="website-content">
                 <!-- Homepage με 4 άρθρα -->
                 <div class="homepage" id="homepage">
-                    <div class="homepage-title">📰 Επιλέξτε Άρθρο</div>
+                    <div class="homepage-title attention">📰 Επιλέξτε Άρθρο</div>
                     <div class="article-grid">
                         ${articles.map((art, idx) => `
                             <div class="article-card" onclick="loadArticle(${idx})">
@@ -1783,7 +1965,46 @@
         
         // Reset form
         document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
-        document.getElementById('q3').selectedIndex = 0;
+        const q3Select = document.getElementById('q3');
+        const q3Other = document.getElementById('q3-other');
+        if (q3Select) {
+            q3Select.selectedIndex = 0;
+        }
+        if (q3Other) {
+            q3Other.value = '';
+            q3Other.classList.add('hidden');
+        }
+
+        adShown = false;
+        const completeBtn = document.getElementById('complete-interaction-btn');
+        if (completeBtn) {
+            completeBtn.disabled = true;
+        }
+
+        aoiMetrics = {
+            adShownAt: null,
+            ttffMs: null,
+            totalFixationMs: 0,
+            visits: 0,
+            lastSampleTime: null,
+            lastInAOI: false
+        };
+
+        const interactionStep = document.getElementById('interaction-step');
+        const evaluationStep = document.getElementById('evaluation-step');
+        if (interactionStep) {
+            interactionStep.classList.remove('hidden');
+        }
+        if (evaluationStep) {
+            evaluationStep.classList.add('hidden');
+        }
+        isTracking = true;
+        updateStatus(true, 'Eye Tracking: Καταγραφή...');
+
+        const nextBtn = document.getElementById('next-scenario-btn');
+        if (nextBtn) {
+            nextBtn.disabled = true;
+        }
 
         // Scroll page and content to top for the next scenario
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -1798,10 +2019,16 @@
         const q1 = document.querySelector('input[name="q1"]:checked');
         const q2 = document.querySelector('input[name="q2"]:checked');
         const q3 = document.getElementById('q3').value;
+        const q3Other = document.getElementById('q3-other');
         const q4 = document.querySelector('input[name="q4"]:checked');
 
         if (!q1 || !q2 || !q3 || !q4) {
             alert("Παρακαλώ απαντήστε σε όλες τις ερωτήσεις.");
+            return;
+        }
+
+        if (q3 === 'Other' && (!q3Other || q3Other.value.trim() === '')) {
+            alert("Παρακαλώ συμπληρώστε την επιλογή 'Άλλο'.");
             return;
         }
 
@@ -1827,8 +2054,11 @@
             ScenarioType: scenarios[currentStep].title,
             Annoyance: q1.value,
             Intrusiveness: q2.value,
-            Reaction: q3,
+            Reaction: q3 === 'Other' && q3Other ? q3Other.value.trim() : q3,
             EmotionalResponse: q4.value,
+            AOI_TTFF_MS: aoiMetrics.ttffMs,
+            AOI_TotalFixation_MS: Math.round(aoiMetrics.totalFixationMs),
+            AOI_Visits: aoiMetrics.visits,
             GazeDataPoints: scenarioGazeData.length,
             GazeDataEncoding: 'json',
             GazeData: JSON.stringify(scenarioGazeData)
@@ -1875,6 +2105,13 @@
                 if (window.currentAdElement) {
                     window.currentAdElement.classList.add('show-ad');
                     adShown = true;
+                    aoiMetrics.adShownAt = Date.now();
+                    aoiMetrics.lastSampleTime = null;
+                    aoiMetrics.lastInAOI = false;
+                    const completeBtn = document.getElementById('complete-interaction-btn');
+                    if (completeBtn) {
+                        completeBtn.disabled = false;
+                    }
                     
                     // Για το scenario 10, ξεκινάμε το video με ήχο + beep sound
                     const currentScenarioId = scenarios[currentStep].id;
@@ -1990,8 +2227,32 @@
         }
     }
 
+    function completeInteraction() {
+        if (!adShown) {
+            alert('Παρακαλώ κάντε scroll ώστε να εμφανιστεί η διαφήμιση πριν ολοκληρώσετε.');
+            return;
+        }
+
+        isTracking = false;
+        updateStatus(false, 'Eye Tracking: Παύση');
+
+        const interactionStep = document.getElementById('interaction-step');
+        const evaluationStep = document.getElementById('evaluation-step');
+        if (interactionStep) {
+            interactionStep.classList.add('hidden');
+        }
+        if (evaluationStep) {
+            evaluationStep.classList.remove('hidden');
+        }
+
+        const nextBtn = document.getElementById('next-scenario-btn');
+        if (nextBtn) {
+            nextBtn.disabled = false;
+        }
+    }
+
 function sendData() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyMt1CiQ1-51GfFviPMjwYQ7jOVlXYDQ5CV5BdBJe446ZAXCqO-lAXNiUdzk8BRqF4S/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxPLC4u8SYfVnwX_r9QRNr8a3bTV42p618oADMNgMSUOzYE10QrLdad_0dwkUcvqluF/exec';
         
         const submitBtn = document.querySelector('#thank-you .btn');
         submitBtn.disabled = true;
@@ -2025,38 +2286,120 @@ function sendData() {
         if (!list) return;
 
         list.innerHTML = scenarios.map((s) => `
-            <div class="question-block">
-                <div style="font-weight: 600; margin-bottom: 6px;">${s.title}</div>
-                <div style="font-size: 12px; color: #666; margin-bottom: 10px;">${s.desc}</div>
-                <label style="font-size: 13px;">Ενοχλητικότητα (1-5):</label>
-                <div style="display:flex; align-items:center; gap:12px; margin-top:6px;">
-                    <input type="range" class="rank-range" data-scenario-id="${s.id}" min="1" max="5" value="3" step="1" style="flex:1;">
-                    <span class="rank-range-value" style="min-width:24px; font-weight:600;">3</span>
+            <div class="question-block rank-item" data-scenario-id="${s.id}" style="cursor: pointer; display:flex; align-items:flex-start; gap:12px;">
+                <div class="rank-badge" style="width:32px; height:32px; min-width:32px; border-radius:50%; background:#e1e8ed; color:#2c3e50; display:flex; align-items:center; justify-content:center; font-weight:700;">–</div>
+                <div>
+                    <div style="font-weight: 600; margin-bottom: 6px;">${s.title}</div>
+                    <div style="font-size: 12px; color: #666;">${s.desc}</div>
                 </div>
             </div>
         `).join('');
+
+        document.querySelectorAll('.rank-item').forEach(item => {
+            item.addEventListener('click', () => handleRankingClick(item));
+        });
+    }
+
+    function handleRankingClick(item) {
+        const id = parseInt(item.dataset.scenarioId, 10);
+        const existingIndex = rankingSelections.findIndex(sel => sel.id === id);
+
+        if (existingIndex !== -1) {
+            rankingSelections.splice(existingIndex, 1);
+        } else {
+            if (rankingSelections.length >= 3) {
+                alert('Μπορείτε να επιλέξετε μόνο 3 διαφημίσεις.');
+                return;
+            }
+            const scenario = scenarios.find(sc => sc.id === id);
+            rankingSelections.push({
+                id,
+                title: scenario ? scenario.title : ''
+            });
+        }
+
+        updateRankingUI();
+    }
+
+    function updateRankingUI() {
+        const badges = document.querySelectorAll('.rank-item');
+        badges.forEach(item => {
+            const id = parseInt(item.dataset.scenarioId, 10);
+            const index = rankingSelections.findIndex(sel => sel.id === id);
+            const badge = item.querySelector('.rank-badge');
+            if (badge) {
+                if (index === -1) {
+                    badge.textContent = '–';
+                    badge.style.background = '#e1e8ed';
+                    badge.style.color = '#2c3e50';
+                } else {
+                    badge.textContent = String(index + 1);
+                    badge.style.background = '#667eea';
+                    badge.style.color = '#fff';
+                }
+            }
+        });
+    }
+
+    function updateRankingContinueState() {
+        const continueBtn = document.getElementById('ranking-continue-btn');
+        if (!continueBtn) return;
+
+        const allAnnoyAnswered = [
+            'annoy1',
+            'annoy2',
+            'annoy3',
+            'annoy4',
+            'annoy5',
+            'annoy6',
+            'annoy7'
+        ].every(name => document.querySelector(`input[name="${name}"]:checked`));
+
+        continueBtn.disabled = !allAnnoyAnswered;
     }
 
     function submitRanking() {
-        const ranges = Array.from(document.querySelectorAll('.rank-range'));
         const overallAnnoyanceEl = document.getElementById('overall-annoyance');
         const overallAnnoyance = overallAnnoyanceEl ? overallAnnoyanceEl.value : '';
+
+        if (rankingSelections.length !== 3) {
+            alert('Παρακαλώ επιλέξτε ακριβώς 3 διαφημίσεις με σειρά προτεραιότητας.');
+            return;
+        }
+
+        const annoy1 = document.querySelector('input[name="annoy1"]:checked');
+        const annoy2 = document.querySelector('input[name="annoy2"]:checked');
+        const annoy3 = document.querySelector('input[name="annoy3"]:checked');
+        const annoy4 = document.querySelector('input[name="annoy4"]:checked');
+        const annoy5 = document.querySelector('input[name="annoy5"]:checked');
+        const annoy6 = document.querySelector('input[name="annoy6"]:checked');
+        const annoy7 = document.querySelector('input[name="annoy7"]:checked');
+
+        if (!annoy1 || !annoy2 || !annoy3 || !annoy4 || !annoy5 || !annoy6 || !annoy7) {
+            alert('Παρακαλώ απαντήστε και στις 7 ερωτήσεις της ενότητας «Γενική Αντίληψη Ενόχλησης».');
+            return;
+        }
+
+        const opinion1 = document.querySelector('input[name="opinion1"]:checked');
+        const opinion2 = document.querySelector('input[name="opinion2"]:checked');
+        const opinion3 = document.querySelector('input[name="opinion3"]:checked');
+        const opinion4 = document.querySelector('input[name="opinion4"]:checked');
+
+        if (!opinion1 || !opinion2 || !opinion3 || !opinion4) {
+            alert('Παρακαλώ απαντήστε και στις 4 ερωτήσεις της ενότητας «Γενική Άποψη & Επίδραση».');
+            return;
+        }
 
         if (!overallAnnoyance) {
             alert('Παρακαλώ συμπληρώστε τη συνολική ενοχλητικότητα (1-5).');
             return;
         }
 
-        rankingData = ranges.map(r => {
-            const id = parseInt(r.dataset.scenarioId, 10);
-            const scenario = scenarios.find(sc => sc.id === id);
-            return {
-                ScenarioID: id,
-                ScenarioType: scenario ? scenario.title : '',
-                ScenarioDesc: scenario ? scenario.desc : '',
-                Annoyance: parseInt(r.value, 10)
-            };
-        });
+        rankingData = rankingSelections.map((sel, idx) => ({
+            Rank: idx + 1,
+            ScenarioID: sel.id,
+            ScenarioType: sel.title
+        }));
 
         // Προσθήκη ranking στο payload
         responses.push({
@@ -2066,14 +2409,98 @@ function sendData() {
             Device: userDevice,
             AdBlocker: userAdBlocker,
             ScenarioID: 'Ranking',
-            ScenarioType: 'Per Ad Annoyance (1-5)',
+            ScenarioType: 'Top 3 Annoying Ads (Ranked)',
             Annoyance: '',
             Intrusiveness: '',
             Reaction: '',
             EmotionalResponse: '',
             GazeDataPoints: '',
-            GazeDataEncoding: 'base64',
-            GazeData: encodeUtf8Base64(JSON.stringify(rankingData))
+            GazeDataEncoding: 'json',
+            GazeData: JSON.stringify(rankingData)
+        });
+
+        const annoyanceFactorsData = [
+            {
+                Question: 'Με διακόπτει και μου αποσπά την προσοχή.',
+                Answer: parseInt(annoy1.value, 10)
+            },
+            {
+                Question: 'Είναι υποχρεωτική (δεν μπορώ να την αποφύγω).',
+                Answer: parseInt(annoy2.value, 10)
+            },
+            {
+                Question: 'Έχει μεγάλη διάρκεια.',
+                Answer: parseInt(annoy3.value, 10)
+            },
+            {
+                Question: 'Μου προβάλλεται συχνά.',
+                Answer: parseInt(annoy4.value, 10)
+            },
+            {
+                Question: 'Το περιεχόμενό της είναι ενοχλητικό/προσβλητικό.',
+                Answer: parseInt(annoy5.value, 10)
+            },
+            {
+                Question: 'Δεν με ενδιαφέρει το προϊόν.',
+                Answer: parseInt(annoy6.value, 10)
+            },
+            {
+                Question: 'Είναι εξατομικευμένη (βασίζεται σε προηγούμενη δραστηριότητά μου online).',
+                Answer: parseInt(annoy7.value, 10)
+            }
+        ];
+
+        responses.push({
+            UserID: userID,
+            Age: userAge,
+            Gender: userGender,
+            Device: userDevice,
+            AdBlocker: userAdBlocker,
+            ScenarioID: 'AnnoyanceFactors',
+            ScenarioType: 'General Annoyance Perception',
+            Annoyance: '',
+            Intrusiveness: '',
+            Reaction: '',
+            EmotionalResponse: '',
+            GazeDataPoints: '',
+            GazeDataEncoding: 'json',
+            GazeData: JSON.stringify(annoyanceFactorsData)
+        });
+
+        const generalOpinionData = [
+            {
+                Question: 'Οι διαφημίσεις μιας επωνυμίας (ή των προϊόντων της) με κάνουν να διαμορφώνω θετική ή αρνητική άποψη για αυτή.',
+                Answer: parseInt(opinion1.value, 10)
+            },
+            {
+                Question: 'Οι διαφημίσεις μιας επωνυμίας (ή ενός προϊόντος) με επηρεάζουν στο αν θα την επιλέξω για αγορές στο μέλλον.',
+                Answer: parseInt(opinion2.value, 10)
+            },
+            {
+                Question: 'Οι διαφημίσεις που προβάλλει ένας ιστότοπος με κάνουν να διαμορφώνω θετική ή αρνητική άποψη για αυτόν.',
+                Answer: parseInt(opinion3.value, 10)
+            },
+            {
+                Question: 'Οι διαφημίσεις που προβάλλει ένας ιστότοπος με επηρεάζουν στο αν θα τον ξαναεπισκεφτώ στο μέλλον.',
+                Answer: parseInt(opinion4.value, 10)
+            }
+        ];
+
+        responses.push({
+            UserID: userID,
+            Age: userAge,
+            Gender: userGender,
+            Device: userDevice,
+            AdBlocker: userAdBlocker,
+            ScenarioID: 'GeneralOpinion',
+            ScenarioType: 'General Opinion & Impact',
+            Annoyance: '',
+            Intrusiveness: '',
+            Reaction: '',
+            EmotionalResponse: '',
+            GazeDataPoints: '',
+            GazeDataEncoding: 'json',
+            GazeData: JSON.stringify(generalOpinionData)
         });
 
         responses.push({
@@ -2117,14 +2544,6 @@ function sendData() {
     window.addEventListener('DOMContentLoaded', function() {
         detectMobileDevice();
         renderRankingList();
-        document.addEventListener('input', (event) => {
-            if (event.target && event.target.classList.contains('rank-range')) {
-                const valueEl = event.target.parentElement.querySelector('.rank-range-value');
-                if (valueEl) {
-                    valueEl.textContent = event.target.value;
-                }
-            }
-        });
         const overallEl = document.getElementById('overall-annoyance');
         const overallValueEl = document.getElementById('overall-annoyance-value');
         if (overallEl && overallValueEl) {
@@ -2132,6 +2551,24 @@ function sendData() {
                 overallValueEl.textContent = overallEl.value;
             });
         }
+        const q3SelectInit = document.getElementById('q3');
+        const q3OtherInit = document.getElementById('q3-other');
+        if (q3SelectInit && q3OtherInit) {
+            q3SelectInit.addEventListener('change', () => {
+                if (q3SelectInit.value === 'Other') {
+                    q3OtherInit.classList.remove('hidden');
+                } else {
+                    q3OtherInit.classList.add('hidden');
+                    q3OtherInit.value = '';
+                }
+            });
+        }
+        document.addEventListener('change', (event) => {
+            if (event.target && event.target.matches('input[type="radio"][name^="annoy"]')) {
+                updateRankingContinueState();
+            }
+        });
+        updateRankingContinueState();
         console.log('🚀 Experiment loaded successfully');
     });
 </script>
