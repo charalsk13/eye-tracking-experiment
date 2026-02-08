@@ -1571,6 +1571,12 @@
     let userAdBlocker = null;
     let rankingData = [];
     let rankingSelections = [];
+    let pendingResponses = [];
+    let isSending = false;
+    let lastSendAt = 0;
+    let autoFlushTimer = null;
+    const SEND_INTERVAL_MS = 60000;
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPLC4u8SYfVnwX_r9QRNr8a3bTV42p618oADMNgMSUOzYE10QrLdad_0dwkUcvqluF/exec';
 
     const userID = 'user_' + Math.random().toString(36).substr(2, 9);
 
@@ -1593,7 +1599,7 @@
         return btoa(unescape(encodeURIComponent(str)));
     }
     
-    // Ensure WebGazer is loaded (fallback to local file if CDN fails)
+    // Ensure WebGazer is loaded (local first, then CDN fallback)
     function ensureWebgazerLoaded() {
         return new Promise((resolve, reject) => {
             if (window.webgazer) {
@@ -1602,18 +1608,25 @@
                 return;
             }
 
-            const script = document.createElement('script');
-            script.src = 'webgazer.js';
-            script.onload = () => {
-                if (window.webgazer) {
-                    webgazer = window.webgazer;
-                    resolve();
-                } else {
-                    reject(new Error('WebGazer global not found after load'));
-                }
-            };
-            script.onerror = () => reject(new Error('WebGazer failed to load'));
-            document.head.appendChild(script);
+            const loadScript = (src) => new Promise((res, rej) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = () => res();
+                script.onerror = () => rej(new Error('WebGazer failed to load: ' + src));
+                document.head.appendChild(script);
+            });
+
+            loadScript('webgazer.js')
+                .catch(() => loadScript('https://webgazer.cs.brown.edu/webgazer.js'))
+                .then(() => {
+                    if (window.webgazer) {
+                        webgazer = window.webgazer;
+                        resolve();
+                    } else {
+                        reject(new Error('WebGazer global not found after load'));
+                    }
+                })
+                .catch(reject);
         });
     }
 
@@ -1722,6 +1735,40 @@
         if (counter) {
             counter.innerText = gazeData.length + ' points';
         }
+    }
+
+    function startAutoFlush() {
+        if (autoFlushTimer) return;
+        autoFlushTimer = setInterval(() => flushPending(false), SEND_INTERVAL_MS);
+    }
+
+    function queueResponse(row) {
+        responses.push(row);
+        pendingResponses.push(row);
+    }
+
+    function flushPending(force) {
+        if (pendingResponses.length === 0 || isSending) return;
+        const now = Date.now();
+        if (!force && now - lastSendAt < SEND_INTERVAL_MS) return;
+
+        const batch = pendingResponses.slice();
+        const batchSize = batch.length;
+        isSending = true;
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(batch)
+        })
+        .then(() => {
+            pendingResponses = pendingResponses.slice(batchSize);
+            lastSendAt = Date.now();
+            isSending = false;
+        })
+        .catch(() => {
+            isSending = false;
+        });
     }
     
     // Calibration Functions
@@ -1897,6 +1944,8 @@
         isTracking = true;
         updateStatus(true, 'Eye Tracking: Καταγραφή...');
         console.log('🎯 Experiment started - Tracking ACTIVE');
+
+        startAutoFlush();
         
         loadScenario();
     }
@@ -2050,7 +2099,7 @@
         console.log(`📊 Scenario ${currentScenarioId}: Collected ${scenarioGazeData.length} gaze points`);
         console.log(`📊 Total gaze data so far: ${gazeData.length} points`);
         
-        responses.push({
+        queueResponse({
             UserID: userID,
             Age: userAge,
             Gender: userGender,
@@ -2069,6 +2118,9 @@
             GazeDataEncoding: 'json',
             GazeData: JSON.stringify(scenarioGazeData)
         });
+
+        flushPending(true);
+        gazeData = gazeData.filter(d => d.scenarioId !== currentScenarioId);
 
         currentStep++;
 
@@ -2263,29 +2315,39 @@
     }
 
 function sendData() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxPLC4u8SYfVnwX_r9QRNr8a3bTV42p618oADMNgMSUOzYE10QrLdad_0dwkUcvqluF/exec';
-        
         const submitBtn = document.querySelector('#thank-you .btn');
         submitBtn.disabled = true;
         submitBtn.innerText = "Αποστολή...";
 
-        console.log('📤 Sending data to Google Sheets...');
-        console.log('📊 Total responses:', responses.length);
-        console.log('📋 Data:', responses);
+        console.log('📤 Sending pending data to Google Sheets...');
+        console.log('📊 Pending responses:', pendingResponses.length);
 
-        fetch(scriptURL, {
+        if (pendingResponses.length === 0) {
+            alert("Οι απαντήσεις σας έχουν ήδη σταλεί. Ευχαριστούμε.");
+            submitBtn.innerText = "Εστάλησαν ✓";
+            submitBtn.style.background = '#27ae60';
+            return;
+        }
+
+        const batch = pendingResponses.slice();
+        const batchSize = batch.length;
+        isSending = true;
+
+        fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
-            body: JSON.stringify(responses)
+            body: JSON.stringify(batch)
         })
         .then(() => {
-            console.log('✅ Data sent successfully!');
+            pendingResponses = pendingResponses.slice(batchSize);
+            isSending = false;
             alert("Οι απαντήσεις σας καταχωρήθηκαν επιτυχώς! Ευχαριστούμε.");
             submitBtn.innerText = "Εστάλησαν ✓";
             submitBtn.style.background = '#27ae60';
         })
         .catch(error => {
             console.error('❌ Error sending data:', error);
+            isSending = false;
             alert("Σημείωση: Τα δεδομένα στάλθηκαν (mode: no-cors δεν επιστρέφει απάντηση). Ελέγξτε το Google Sheet!");
             submitBtn.innerText = "Πιθανώς Εστάλησαν";
             submitBtn.style.background = '#f39c12';
@@ -2413,7 +2475,7 @@ function sendData() {
         }));
 
         // Προσθήκη ranking στο payload
-        responses.push({
+        queueResponse({
             UserID: userID,
             Age: userAge,
             Gender: userGender,
@@ -2461,7 +2523,7 @@ function sendData() {
             }
         ];
 
-        responses.push({
+        queueResponse({
             UserID: userID,
             Age: userAge,
             Gender: userGender,
@@ -2497,7 +2559,7 @@ function sendData() {
             }
         ];
 
-        responses.push({
+        queueResponse({
             UserID: userID,
             Age: userAge,
             Gender: userGender,
@@ -2514,7 +2576,7 @@ function sendData() {
             GazeData: JSON.stringify(generalOpinionData)
         });
 
-        responses.push({
+        queueResponse({
             UserID: userID,
             Age: userAge,
             Gender: userGender,
@@ -2530,6 +2592,8 @@ function sendData() {
             GazeDataEncoding: '',
             GazeData: ''
         });
+
+        flushPending(true);
 
         document.getElementById('ranking-screen').classList.add('hidden');
         document.getElementById('thank-you').classList.remove('hidden');
