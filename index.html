@@ -2238,6 +2238,11 @@
             return;
         }
 
+        const currentScenarioId = scenarios[currentStep].id;
+        if (currentScenarioId === 10) {
+            stopAdVideo(10);
+        }
+
         isTracking = false;
         updateStatus(false, 'Eye Tracking: Παύση');
 
