@@ -1260,6 +1260,7 @@
     <p id="scenario-desc">Περιγραφή...</p>
 
     <div id="interaction-step">
+        <p id="scenario-instruction" class="instruction-text"></p>
         <div class="mobile-frame">
             <div class="simulation-box" id="sim-box">
                 <div class="website-header">www.news-portal.gr</div>
@@ -1915,7 +1916,11 @@
         const scenario = scenarios[currentStep];
         
         document.getElementById('scenario-title').innerText = `Σενάριο ${currentStep + 1}/${scenarios.length}: ${scenario.title}`;
-        document.getElementById('scenario-desc').innerHTML = '<strong>Οδηγία: Επιλέξτε ένα από τα διαθέσιμα άρθρα στην οθόνη του κινητού και περιηγηθείτε (scroll) για να ξεκινήσει το σενάριο.</strong><br>' + scenario.desc;
+        document.getElementById('scenario-desc').innerHTML = scenario.desc;
+        const instructionEl = document.getElementById('scenario-instruction');
+        if (instructionEl) {
+            instructionEl.innerHTML = '<strong>Οδηγία: Επιλέξτε ένα από τα διαθέσιμα άρθρα στην οθόνη του κινητού και περιηγηθείτε (scroll) για να ξεκινήσει το σενάριο.</strong>';
+        }
         
         // Clear sim-box and rebuild with homepage + articles
         const simBox = document.getElementById('sim-box');
