@@ -1272,7 +1272,7 @@
     <div class="question-block">
         <label><strong>Θέλετε να ενεργοποιήσετε Eye Tracking (Παρακολούθηση Βλέμματος);</strong></label>
         <div style="margin-top: 10px; margin-bottom: 10px;">
-            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="eyetracking" value="Ναι"> ✅ Ναι (Απαιτεί webcam - συνιστάται για πλήρη έρευνα)</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="eyetracking" value="Ναι"> ✅ Ναι (Απαιτεί κάμερα/webcam - συνιστάται για πλήρη έρευνα)</label>
             <label style="display: block;"><input type="radio" name="eyetracking" value="Όχι"> ❌ Όχι (Συμμετοχή χωρίς eye tracking)</label>
         </div>
         <div style="background: #e8f4f8; padding: 12px; border-radius: 6px; font-size: 13px; color: #2c3e50;">
@@ -2191,6 +2191,11 @@
             isTracking = false;
             if (window.webgazer) {
                 window.webgazer.pause();
+                window.webgazer.showVideoPreview(false);
+                window.webgazer.showPredictionPoints(false);
+                if (typeof window.webgazer.end === 'function') {
+                    window.webgazer.end();
+                }
             }
             updateStatus(false, 'Eye Tracking: Ολοκληρώθηκε');
             
