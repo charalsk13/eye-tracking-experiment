@@ -2235,17 +2235,22 @@
         }
 
         // Save Data με gaze information
-        const currentScenarioId = scenarios[currentStep].id;
+        const currentScenario = scenarios[currentStep];
+        const currentScenarioId = currentScenario ? currentScenario.id : null;
 
         // Σταμάτα ήχο/βίντεο όταν φεύγουμε από το τελευταίο σενάριο (10)
         if (currentScenarioId === 10) {
             stopAdVideo(10);
         }
-        const scenarioGazeData = gazeData.filter(d => d.scenarioId === currentScenarioId);
+        const scenarioGazeData = currentScenarioId ? gazeData.filter(d => d.scenarioId === currentScenarioId) : [];
         
         console.log(`📊 Scenario ${currentScenarioId}: Collected ${scenarioGazeData.length} gaze points`);
         console.log(`📊 Total gaze data so far: ${gazeData.length} points`);
         
+        if (!currentScenarioId) {
+            console.warn('⚠️ Scenario not found for currentStep:', currentStep);
+        }
+
         queueResponse({
             UserID: userID,
             Age: userAge,
@@ -2258,7 +2263,7 @@
             Device: userDevice,
             AdBlocker: userAdBlocker,
             ScenarioID: currentScenarioId,
-            ScenarioType: scenarios[currentStep].title,
+            ScenarioType: currentScenario ? currentScenario.title : '',
             Annoyance: q1.value,
             Intrusiveness: q2.value,
             Reaction: q3 === 'Other' && q3Other ? q3Other.value.trim() : q3,
@@ -2283,11 +2288,15 @@
             // Σταμάτημα tracking
             isTracking = false;
             if (window.webgazer) {
-                window.webgazer.pause();
-                window.webgazer.showVideoPreview(false);
-                window.webgazer.showPredictionPoints(false);
-                if (typeof window.webgazer.end === 'function') {
-                    window.webgazer.end();
+                try {
+                    window.webgazer.pause();
+                    window.webgazer.showVideoPreview(false);
+                    window.webgazer.showPredictionPoints(false);
+                    if (typeof window.webgazer.end === 'function') {
+                        window.webgazer.end();
+                    }
+                } catch (err) {
+                    console.warn('WebGazer shutdown error:', err);
                 }
             }
             updateStatus(false, 'Eye Tracking: Ολοκληρώθηκε');
@@ -2543,7 +2552,9 @@
                 window.annoyngBeepOscillator.stop();
             }
             if (window.annoyingBeepContext) {
-                window.annoyingBeepContext.close();
+                if (window.annoyingBeepContext.state !== 'closed') {
+                    window.annoyingBeepContext.close();
+                }
             }
         }
     }
