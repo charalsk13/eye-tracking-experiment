@@ -1236,6 +1236,19 @@
     
     <div class="demographic-section">
         <div class="section-title">📋 Δημογραφικά Στοιχεία</div>
+
+    <div class="question-block" style="background: #f7fbff;">
+        <label><strong>Συγκατάθεση Συμμετοχής</strong></label>
+        <p style="margin: 10px 0 12px 0; font-size: 13px; color: #2c3e50; line-height: 1.6;">
+            Η συμμετοχή στην έρευνα είναι ανώνυμη και εθελοντική. Τα δεδομένα που θα συλλεχθούν είναι εμπιστευτικά
+            και θα χρησιμοποιηθούν αποκλειστικά για σκοπούς ακαδημαϊκής έρευνας. Για να συνεχίσετε είναι αναγκαία
+            η συγκατάθεσή σας:
+        </p>
+        <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #2c3e50;">
+            <input type="checkbox" id="consent" style="margin-top: 3px;">
+            Δέχομαι να χρησιμοποιηθούν ανώνυμα οι απαντήσεις μου για ερευνητικούς σκοπούς.
+        </label>
+    </div>
     
     <div class="question-block">
         <label><strong>Ποια είναι η ηλικία σας;</strong></label>
@@ -1248,6 +1261,60 @@
             <label style="display: block; margin-bottom: 8px;"><input type="radio" name="gender" value="Άντρας"> Άντρας</label>
             <label style="display: block; margin-bottom: 8px;"><input type="radio" name="gender" value="Γυναίκα"> Γυναίκα</label>
             <label style="display: block;"><input type="radio" name="gender" value="Άλλο"> Άλλο</label>
+        </div>
+    </div>
+
+    <div class="question-block">
+        <label><strong>3. Παρακαλώ επιλέξτε το επίπεδο εκπαίδευσής σας.</strong></label>
+        <div style="margin-top: 10px;">
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="education" value="Απόφοιτος Λυκείου"> Απόφοιτος Λυκείου</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="education" value="Απόφοιτος Πανεπιστημίου"> Απόφοιτος Πανεπιστημίου</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="education" value="Κάτοχος Μεταπτυχιακού Τίτλου Σπουδών"> Κάτοχος Μεταπτυχιακού Τίτλου Σπουδών</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="education" value="Υποψήφιος Διδάκτωρ"> Υποψήφιος Διδάκτωρ</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="education" value="Διδάκτωρ"> Διδάκτωρ</label>
+            <label style="display: block;"><input type="radio" name="education" value="Άλλο"> Άλλο</label>
+        </div>
+    </div>
+
+    <div class="question-block">
+        <label><strong>4. Παρακαλώ επιλέξτε το είδος της απασχόλησής σας.</strong></label>
+        <div style="margin-top: 10px;">
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="employment" value="Ιδιωτικός Υπάλληλος"> Ιδιωτικός Υπάλληλος</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="employment" value="Δημόσιος Υπάλληλος"> Δημόσιος Υπάλληλος</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="employment" value="Ελεύθερος Επαγγελματίας"> Ελεύθερος Επαγγελματίας</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="employment" value="Φοιτητής"> Φοιτητής</label>
+            <label style="display: block;"><input type="radio" name="employment" value="Άνεργος"> Άνεργος</label>
+        </div>
+    </div>
+
+    <div class="question-block">
+        <label><strong>5. Πόσο συχνά χρησιμοποιείτε το web; (1=πολύ περιστασιακά, 5=περισσότερο από 2 ώρες καθημερινά)</strong></label>
+        <div class="likert-scale">
+            <label class="likert-option"><input type="radio" name="webusage" value="1">1</label>
+            <label class="likert-option"><input type="radio" name="webusage" value="2">2</label>
+            <label class="likert-option"><input type="radio" name="webusage" value="3">3</label>
+            <label class="likert-option"><input type="radio" name="webusage" value="4">4</label>
+            <label class="likert-option"><input type="radio" name="webusage" value="5">5</label>
+        </div>
+    </div>
+
+    <div class="question-block">
+        <label><strong>6. Με τί συσκευή μπαίνετε στο web συνήθως;</strong></label>
+        <div style="margin-top: 10px;">
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="webdevice" value="Κινητό"> Κινητό</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="webdevice" value="PC-Laptop"> PC/Laptop</label>
+            <label style="display: block;"><input type="radio" name="webdevice" value="Tablet"> Tablet</label>
+        </div>
+    </div>
+
+    <div class="question-block">
+        <label><strong>7. Πόσο συχνά αγοράζετε online;</strong></label>
+        <div style="margin-top: 10px;">
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="onlinepurchase" value="Ποτέ"> Ποτέ</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="onlinepurchase" value="Σχεδόν ποτέ"> Σχεδόν ποτέ</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="onlinepurchase" value="Περιστασιακά"> Περιστασιακά</label>
+            <label style="display: block; margin-bottom: 8px;"><input type="radio" name="onlinepurchase" value="Συχνά"> Συχνά</label>
+            <label style="display: block;"><input type="radio" name="onlinepurchase" value="Πολύ συχνά"> Πολύ συχνά</label>
         </div>
     </div>
     
@@ -1626,6 +1693,11 @@
     let responses = [];
     let userAge = null;
     let userGender = null;
+    let userEducation = null;
+    let userEmployment = null;
+    let userWebUsage = null;
+    let userWebDevice = null;
+    let userOnlinePurchase = null;
     let userDevice = null;
     let userAdBlocker = null;
     let rankingData = [];
@@ -1635,7 +1707,7 @@
     let lastSendAt = 0;
     let autoFlushTimer = null;
     const SEND_INTERVAL_MS = 60000;
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPdRv-8UIPL1uGMtVaKhnUsV-ibFwiMbp0w4UezWO5jKAKLRpmIu1fl70jw_PLeInz/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwy6tnMJ_VHeoJcDyL6GQSainPI7QGS971fEpr8Q6WlRam2m6hQ2RTdbwyAsmDyaX4/exec';
 
     const userID = 'user_' + Math.random().toString(36).substr(2, 9);
 
@@ -1838,18 +1910,34 @@
         }
 
         const age = document.getElementById('age').value;
+        const consentEl = document.getElementById('consent');
         const genderElement = document.querySelector('input[name="gender"]:checked');
+        const educationElement = document.querySelector('input[name="education"]:checked');
+        const employmentElement = document.querySelector('input[name="employment"]:checked');
+        const webUsageElement = document.querySelector('input[name="webusage"]:checked');
+        const webDeviceElement = document.querySelector('input[name="webdevice"]:checked');
+        const onlinePurchaseElement = document.querySelector('input[name="onlinepurchase"]:checked');
         const deviceElement = document.querySelector('input[name="device"]:checked');
         const adblockerElement = document.querySelector('input[name="adblocker"]:checked');
         const eyetrackingElement = document.querySelector('input[name="eyetracking"]:checked');
         
-        if (!age || !genderElement || !deviceElement || !adblockerElement || !eyetrackingElement) {
+        if (!consentEl || !consentEl.checked) {
+            alert("Για να συνεχίσετε πρέπει να δώσετε τη συγκατάθεσή σας.");
+            return;
+        }
+
+        if (!age || !genderElement || !educationElement || !employmentElement || !webUsageElement || !webDeviceElement || !onlinePurchaseElement || !deviceElement || !adblockerElement || !eyetrackingElement) {
             alert("Παρακαλώ συμπληρώστε όλα τα δημογραφικά στοιχεία.");
             return;
         }
         
         userAge = age;
         userGender = genderElement.value;
+        userEducation = educationElement.value;
+        userEmployment = employmentElement.value;
+        userWebUsage = webUsageElement.value;
+        userWebDevice = webDeviceElement.value;
+        userOnlinePurchase = onlinePurchaseElement.value;
         userDevice = deviceElement.value;
         userAdBlocker = adblockerElement.value;
         const useEyeTracking = eyetrackingElement.value === 'Ναι';
@@ -2162,6 +2250,11 @@
             UserID: userID,
             Age: userAge,
             Gender: userGender,
+            Education: userEducation,
+            Employment: userEmployment,
+            WebUsage: userWebUsage,
+            WebDevice: userWebDevice,
+            OnlinePurchase: userOnlinePurchase,
             Device: userDevice,
             AdBlocker: userAdBlocker,
             ScenarioID: currentScenarioId,
@@ -2641,6 +2734,11 @@ function sendData() {
             UserID: userID,
             Age: userAge,
             Gender: userGender,
+            Education: userEducation,
+            Employment: userEmployment,
+            WebUsage: userWebUsage,
+            WebDevice: userWebDevice,
+            OnlinePurchase: userOnlinePurchase,
             Device: userDevice,
             AdBlocker: userAdBlocker,
             ScenarioID: 'Ranking',
@@ -2689,6 +2787,11 @@ function sendData() {
             UserID: userID,
             Age: userAge,
             Gender: userGender,
+            Education: userEducation,
+            Employment: userEmployment,
+            WebUsage: userWebUsage,
+            WebDevice: userWebDevice,
+            OnlinePurchase: userOnlinePurchase,
             Device: userDevice,
             AdBlocker: userAdBlocker,
             ScenarioID: 'AnnoyanceFactors',
@@ -2725,6 +2828,11 @@ function sendData() {
             UserID: userID,
             Age: userAge,
             Gender: userGender,
+            Education: userEducation,
+            Employment: userEmployment,
+            WebUsage: userWebUsage,
+            WebDevice: userWebDevice,
+            OnlinePurchase: userOnlinePurchase,
             Device: userDevice,
             AdBlocker: userAdBlocker,
             ScenarioID: 'GeneralOpinion',
